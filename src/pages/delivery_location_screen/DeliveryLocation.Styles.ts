@@ -77,11 +77,11 @@ const delivLocStyles = {
       fontSize: "25px",
       color: "#000",
       "&::-webkit-outer-spin-button": {
-        "-webkit-appearance": "none",
+        "WebkitAppearance": "none",
         display: "none",
       },
       "&::-webkit-inner-spin-button": {
-        "-webkit-appearance": "none",
+        "WebkitAppearance": "none",
         display: "none",
       },
     },

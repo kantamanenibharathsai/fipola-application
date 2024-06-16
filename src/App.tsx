@@ -6,9 +6,11 @@ import DelivLoc from './pages/delivery_location_screen/DeliveryLocation';
 
 function App() {
   return (
-    // <SplashScreen/>
-    // <LoginBoardingScreen />
+    <>
+     {/* <SplashScreen/> */}
+    <LoginBoardingScreen />
     <DelivLoc />
+    </>
   );
 }
 

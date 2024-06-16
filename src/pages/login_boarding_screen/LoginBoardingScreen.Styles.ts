@@ -46,10 +46,10 @@ const loginBoardingScreenStyles = {
       borderRadius: "14px",
       pl: "15px",
       "&::-webkit-outer-spin-button": {
-        "-webkit-appearance": "none",
+        "WebkitAppearance": "none",
       },
       "&::-webkit-inner-spin-button": {
-        "-webkit-appearance": "none",
+        "WebkitAppearance": "none",
       },
     },
   },
