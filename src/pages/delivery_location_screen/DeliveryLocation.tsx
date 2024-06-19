@@ -6,8 +6,6 @@ import firebase from "../../firebase/firebase";
 
 
 
-
-
 class DelivLoc extends Component {
     state = { isBtnDisabled: true }
 
