@@ -10,6 +10,7 @@ const styles = {
     mt: 3,
     width: "100%",
     borderRadius: "25px",
+    color: "#A9A9A9",
     "& .MuiInputBase-input": {
       height: "20px",
       borderRadius: "25px",
@@ -26,6 +27,9 @@ const styles = {
         borderColor: "#000",
         color: "#000",
       },
+    },
+    "& .MuiInputBase-input-MuiOutlinedInput-input": {
+      color: "#A9A9A9",
     },
   },
   continueBtnBox: {

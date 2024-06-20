@@ -46,11 +46,24 @@ const loginBoardingScreenStyles = {
       borderRadius: "14px",
       pl: "15px",
       "&::-webkit-outer-spin-button": {
-        "WebkitAppearance": "none",
+        WebkitAppearance: "none",
       },
       "&::-webkit-inner-spin-button": {
-        "WebkitAppearance": "none",
+        WebkitAppearance: "none",
       },
+    },
+  },
+
+  dontHaveAccount: {
+    fontFamily: "Montserrat Alternates",
+    fontWeight: 600,
+    fontSize: "15px",
+    // textAlign: "center",
+    color: "#18161B",
+    mt: "-20px",
+    "& span": {
+      color: "red",
+      cursor: "pointer",
     },
   },
 };

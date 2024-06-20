@@ -3,9 +3,10 @@ import leftArrow from "../../assets/receipes/leftArrow.png";
 
 const homePageStyles = {
   container: {
-    minHeight: "100vh",
+    height: "auto",
     width: "100%",
     position: "relative",
+    top: "83px",
     // border: "3px solid red",
   },
 
@@ -15,6 +16,8 @@ const homePageStyles = {
     justifyContent: "center",
     height: "82px",
     background: "#f5bf45",
+    // position: "fixed",
+    // top: 0,
   },
 
   navChildCont: {
@@ -240,7 +243,6 @@ const homePageStyles = {
     pl: { xs: "5%", sm: 0 },
     pt: "20px",
     pb: "20px",
-    mb: "50px",
     "& #receipeChildCont": {
       width: "auto",
       position: "relative",
@@ -284,6 +286,91 @@ const homePageStyles = {
     },
     "& .react-multi-carousel-item": {
       width: "auto !important",
+    },
+  },
+
+  pressCornerCont: {
+    backgroundColor: "#fff",
+    width: "100%",
+    height: "auto",
+    boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+    mb: 4,
+    mt: "20px",
+    py: "20px",
+    pb: "30px",
+  },
+
+  pressCornerChildCont: {
+    // width: "90%",
+    background: "#fff",
+    margin: "auto",
+    display: "flex",
+    flexDirection: "column",
+    width: { xs: "90%", sm: "319px" },
+    height: "auto",
+    gap: "15px",
+    // border: "1px solid red",
+    "& h2": {
+      fontFamily: "Montserrat Alternates",
+      fontWeight: 600,
+      fontSize: "20px",
+      color: "#18161B",
+      // border: "1px solid red",
+    },
+  },
+
+  cardCont: {
+    boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+    borderRadius: "5px",
+    position: "relative",
+    "& img": {
+      width: "100%",
+      objectFit: "cover",
+      height: "149px",
+      borderRadius: "5px 5px 0px 0px",
+      // border: "1px solid red",
+    },
+    "& > div": {
+      // height: "calc(280px - 149px)",
+      py: "15px",
+      "& > div": {
+        width: "90%",
+        margin: "auto",
+        display: "flex",
+        flexDirection: "column",
+        gap: "12px",
+      },
+      "& p:nth-of-type(1)": {
+        fontFamily: "Montserrat Alternates",
+        fontWeight: 600,
+        fontSize: "16px",
+        color: "#18161B",
+        lineHeight: "24px",
+      },
+      "& p:nth-of-type(2)": {
+        fontFamily: "Montserrat Alternates",
+        fontWeight: 600,
+        fontSize: "14px",
+        color: "#F62B2A",
+      },
+    },
+  },
+
+  headsetImgCont: {
+    borderRadius: "50%",
+    background: "#F62B2A",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "50px",
+    height: "50px",
+    position: "absolute",
+    bottom: "-20px",
+    right: "-20px",
+    "& > img": {
+      width: "24px",
+      height: "24px",
+      objectFit: "cover",
     },
   },
 };

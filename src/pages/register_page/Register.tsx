@@ -31,7 +31,7 @@ interface RegisterState { }
 
 
 
-class Register extends React.Component<RegisterProps, RegisterState> {
+class RegisterPage extends React.Component<RegisterProps, RegisterState> {
     state: RegisterState = {};
 
     validationSchema = Yup.object().shape({
@@ -130,6 +130,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                                         label="Email"
                                         type="email"
                                         name="email"
+                                        autoComplete=""
                                         sx={styles.textfield}
                                         onChange={props.handleChange}
                                         onBlur={props.handleBlur}
@@ -152,6 +153,7 @@ class Register extends React.Component<RegisterProps, RegisterState> {
                                         onBlur={props.handleBlur}
                                         onFocus={props.handleBlur}
                                         value={props.values.password}
+                                        autoComplete=""
                                         error={
                                             props.touched.password && Boolean(props.errors.password)
                                         }
@@ -212,5 +214,5 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
 
 
 export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(Register)
+    connect(mapStateToProps, mapDispatchToProps)(RegisterPage)
 );

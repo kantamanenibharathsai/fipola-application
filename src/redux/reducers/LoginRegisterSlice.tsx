@@ -1,8 +1,5 @@
-
-
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { baseURL } from "../../../config";
-
+import { baseURL } from "../../config";
 
 export const registerUserDetails = createAsyncThunk(
     "registerUserDetails",
@@ -36,14 +33,79 @@ export const registerUserDetails = createAsyncThunk(
             if (!result.data) {
                 alert("Mobile Number already taken");
             } else {
-                // actions.resetForm();
                 alert("Registration successful");
-                // this.props.navigate("/");
                 localStorage.setItem("userRegisteredData", JSON.stringify(result.data));
                 return result.data;
             }
         } catch (error) {
             console.log("Error", error);
+        }
+    }
+);
+
+export const loginWithMobileNumber = createAsyncThunk(
+    "loginWithMobileNumber",
+    async (mobileNumber: string) => {
+        try {
+            const data = JSON.stringify({
+                mobile_number: `+91${mobileNumber}`,
+            });
+            const response = await fetch(
+                `${baseURL}/login_block/logins/login_with_number`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: data,
+                }
+            );
+            if (!response.ok) {
+                throw new Error("Something went wrong");
+            }
+            const result = await response.json();
+            console.log(result.data);
+            if (!result.data) {
+                alert("Mobile Number not registered");
+            } else {
+                return result.data;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+);
+
+export const loginWithOTP = createAsyncThunk(
+    "loginWithOTP",
+    async ({ mobile_number, otp }: { mobile_number: string; otp: string }) => {
+        try {
+            const response = await fetch(
+                `${baseURL}/user_block/otps/validate_otp?mobile_number=${mobile_number.slice(
+                    1
+                )}&otp=${otp}`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            if (!response.ok) {
+                throw new Error("Something went wrong");
+            }
+            const result = await response.json();
+            if (!result.token) {
+                alert("Invalid OTP");
+            } else {
+                console.log(result);
+                localStorage.setItem("token", result.token);
+                return result;
+            }
+        } catch (error) {
+            console.log("Bad Verification Code");
+            console.log(error);
+            alert("Invalid Token");
         }
     }
 );
@@ -71,6 +133,16 @@ export interface IState {
             };
         };
     };
+    otpData: {
+        created_at: string;
+        id: number;
+        mobile_number: string;
+        otp: string;
+        status: string;
+        updated_at: string;
+        valid_time: string;
+    };
+    token: string;
 }
 
 const initialState: IState = {
@@ -96,6 +168,16 @@ const initialState: IState = {
             },
         },
     },
+    otpData: {
+        created_at: "",
+        id: 0,
+        mobile_number: "",
+        otp: "",
+        status: "",
+        updated_at: "",
+        valid_time: "",
+    },
+    token: "",
 };
 
 export const loginRegisterSlice = createSlice({
@@ -113,6 +195,30 @@ export const loginRegisterSlice = createSlice({
             state.registeredData = action.payload;
         });
         builder.addCase(registerUserDetails.rejected, (state) => {
+            state.status = "Failed";
+        });
+
+        builder.addCase(loginWithMobileNumber.pending, (state) => {
+            state.status = "Loading";
+        });
+        builder.addCase(loginWithMobileNumber.fulfilled, (state, action) => {
+            state.status = "Success";
+            state.otpData = action.payload;
+        });
+        builder.addCase(loginWithMobileNumber.rejected, (state) => {
+            state.status = "Failed";
+        });
+
+        builder.addCase(loginWithOTP.pending, (state) => {
+            state.status = "Loading";
+        });
+        builder.addCase(loginWithOTP.fulfilled, (state, action) => {
+            state.status = "Success";
+            if (action.payload.token) {
+                state.token = action.payload.token;
+            }
+        });
+        builder.addCase(loginWithOTP.rejected, (state) => {
             state.status = "Failed";
         });
     },
