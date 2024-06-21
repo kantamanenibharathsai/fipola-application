@@ -39,6 +39,7 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    flexDirection: "column",
   },
   continueBtn: {
     maxWidth: "390px",
@@ -53,6 +54,75 @@ const styles = {
     "&:hover": {
       background: "#f62b29",
     },
+  },
+
+  alreadyHaveAccount: {
+    fontFamily: "Montserrat Alternates",
+    fontWeight: 600,
+    fontSize: "14px",
+    color: "#18161B",
+    mt: 1,
+    "& span": {
+      color: "red",
+      cursor: "pointer",
+    },
+  },
+
+  spinnerContainerStyle: {
+    maxWidth: "390px",
+    background: "#f62b29",
+    color: "#fff",
+    fontWeight: "600",
+    width: "91%",
+    textTransform: "none",
+    fontSize: "1rem",
+    py: 1.2,
+    height: "44px",
+    alignSelf: "strech",
+    borderRadius: "13px",
+    position: "relative",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  spinner: {
+    "&:before": {
+      content: '""',
+      boxSizing: "border-box",
+      position: "absolute",
+      left: "46%",
+      width: "25px",
+      height: "25px",
+      borderRadius: "50%",
+      border: "2px solid #fff",
+      borderTopColor: "#0e0",
+      borderRightColor: "#0dd",
+      borderBottomColor: "#f90",
+      animation: "spinnerAnim .6s linear infinite",
+      mt: "-12px",
+    },
+    "@keyframes spinnerAnim": {
+      to: {
+        transform: "rotate(360deg)",
+      },
+    },
+  },
+
+  positiveResponse: {
+    fontFamily: "Montserrat Alternates",
+    fontWeight: 600,
+    fontSize: "14px",
+    mt: 1,
+    color: "green",
+  },
+
+  negativeResponse: {
+    fontFamily: "Montserrat Alternates",
+    fontWeight: 600,
+    fontSize: "14px",
+    mt: 1,
+    color: "red",
   },
 };
 

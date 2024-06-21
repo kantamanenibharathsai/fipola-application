@@ -1,6 +1,69 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { baseURL } from "../../config";
 
+
+
+
+export interface IState {
+    userDetails: {
+        fname: string;
+        lname: string;
+        email: string;
+        password: string;
+        mobileNumber: string;
+    };
+    status: "Idle" | "Loading" | "Success" | "Failed";
+    registeredData: null | {
+        data: {
+            id: string;
+            type: string;
+            attributes: {
+                created_at: string;
+                first_name: string;
+                last_name: string;
+                email: string;
+                mobile_number: string;
+                updated_at: string;
+            };
+        };
+    };
+    registerErrMsg: string;
+    mobileErrMsg: string;
+    otpErrMsg: string;
+    otpData: null | {
+        data: {
+            created_at: string;
+            id: number;
+            mobile_number: string;
+            otp: string;
+            status: boolean;
+            updated_at: string;
+            valid_time: string;
+        },
+        message: string,
+        status: number
+    };
+    token: string;
+}
+
+const initialState: IState = {
+    userDetails: {
+        fname: "",
+        lname: "",
+        email: "",
+        password: "",
+        mobileNumber: "",
+    },
+    status: "Idle",
+    registeredData: null,
+    registerErrMsg: "",
+    mobileErrMsg: "",
+    otpErrMsg: "",
+    otpData: null,
+    token: "",
+};
+
+
 export const registerUserDetails = createAsyncThunk(
     "registerUserDetails",
     async (userRegisterData: IState["userDetails"]) => {
@@ -25,27 +88,21 @@ export const registerUserDetails = createAsyncThunk(
                 },
                 body: data,
             });
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
             const result = await response.json();
-            console.log(result.data);
-            if (!result.data) {
-                alert("Mobile Number already taken");
-            } else {
-                alert("Registration successful");
+            if (result.errors) return result.errors;
+            else {
                 localStorage.setItem("userRegisteredData", JSON.stringify(result.data));
                 return result.data;
             }
-        } catch (error) {
-            console.log("Error", error);
-        }
+        } catch (errors) { return errors };
     }
 );
 
 export const loginWithMobileNumber = createAsyncThunk(
     "loginWithMobileNumber",
     async (mobileNumber: string) => {
+        console.log("login mobile")
         try {
             const data = JSON.stringify({
                 mobile_number: `+91${mobileNumber}`,
@@ -64,15 +121,11 @@ export const loginWithMobileNumber = createAsyncThunk(
                 throw new Error("Something went wrong");
             }
             const result = await response.json();
-            console.log(result.data);
-            if (!result.data) {
-                alert("Mobile Number not registered");
-            } else {
-                return result.data;
-            }
-        } catch (error) {
-            console.log(error);
-        }
+            console.log("result", result)
+            // console.log(result.data);
+            if (result.status === 422) return result.message;
+            else return result;
+        } catch (errors) { return errors };
     }
 );
 
@@ -110,75 +163,6 @@ export const loginWithOTP = createAsyncThunk(
     }
 );
 
-export interface IState {
-    userDetails: {
-        fname: string;
-        lname: string;
-        email: string;
-        password: string;
-        mobileNumber: string;
-    };
-    status: "Idle" | "Loading" | "Success" | "Failed";
-    registeredData: {
-        data: {
-            id: string;
-            type: string;
-            attributes: {
-                created_at: string;
-                first_name: string;
-                last_name: string;
-                email: string;
-                mobile_number: string;
-                updated_at: string;
-            };
-        };
-    };
-    otpData: {
-        created_at: string;
-        id: number;
-        mobile_number: string;
-        otp: string;
-        status: string;
-        updated_at: string;
-        valid_time: string;
-    };
-    token: string;
-}
-
-const initialState: IState = {
-    userDetails: {
-        fname: "",
-        lname: "",
-        email: "",
-        password: "",
-        mobileNumber: "",
-    },
-    status: "Idle",
-    registeredData: {
-        data: {
-            id: "",
-            type: "",
-            attributes: {
-                created_at: "",
-                first_name: "",
-                last_name: "",
-                email: "",
-                mobile_number: "",
-                updated_at: "",
-            },
-        },
-    },
-    otpData: {
-        created_at: "",
-        id: 0,
-        mobile_number: "",
-        otp: "",
-        status: "",
-        updated_at: "",
-        valid_time: "",
-    },
-    token: "",
-};
 
 export const loginRegisterSlice = createSlice({
     name: "loginRegister",
@@ -192,7 +176,15 @@ export const loginRegisterSlice = createSlice({
         });
         builder.addCase(registerUserDetails.fulfilled, (state, action) => {
             state.status = "Success";
-            state.registeredData = action.payload;
+            console.log("action.payload", action.payload);
+            if (action.payload.data) {
+                state.registeredData = action.payload;
+                state.registerErrMsg = "";
+            } else {
+                state.registerErrMsg = action.payload[0];
+                state.registeredData = null;
+            };
+
         });
         builder.addCase(registerUserDetails.rejected, (state) => {
             state.status = "Failed";
@@ -203,7 +195,13 @@ export const loginRegisterSlice = createSlice({
         });
         builder.addCase(loginWithMobileNumber.fulfilled, (state, action) => {
             state.status = "Success";
-            state.otpData = action.payload;
+            if (action.payload.data) {
+                state.otpData = action.payload;
+                state.mobileErrMsg = "";
+            } else {
+                state.mobileErrMsg = action.payload;
+                state.otpData = null;
+            };
         });
         builder.addCase(loginWithMobileNumber.rejected, (state) => {
             state.status = "Failed";

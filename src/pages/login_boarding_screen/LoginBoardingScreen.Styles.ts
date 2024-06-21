@@ -66,6 +66,69 @@ const loginBoardingScreenStyles = {
       cursor: "pointer",
     },
   },
+
+  spinnerContainerStyle: {
+    maxWidth: "390px",
+    background: "#f62b29",
+    color: "#fff",
+    fontWeight: "600",
+    width: "91%",
+    textTransform: "none",
+    fontSize: "1rem",
+    py: 1.2,
+    height: "44px",
+    alignSelf: "strech",
+    borderRadius: "13px",
+    position: "relative",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  spinner: {
+    "&:before": {
+      content: '""',
+      boxSizing: "border-box",
+      position: "absolute",
+      left: "46%",
+      width: "25px",
+      height: "25px",
+      borderRadius: "50%",
+      border: "2px solid #fff",
+      borderTopColor: "#0e0",
+      borderRightColor: "#0dd",
+      borderBottomColor: "#f90",
+      animation: "spinnerAnim .6s linear infinite",
+      mt: "-12px",
+    },
+    "@keyframes spinnerAnim": {
+      to: {
+        transform: "rotate(360deg)",
+      },
+    },
+  },
+
+  positiveResponse: {
+    fontFamily: "Montserrat Alternates",
+    fontWeight: 600,
+    fontSize: "14px",
+    mt: "-20px",
+    color: "green",
+    // border: "2px solid red"
+    "& span": {
+      fontSize: "18px",
+      color: "black",
+      mx: 1
+    }
+  },
+
+  negativeResponse: {
+    fontFamily: "Montserrat Alternates",
+    fontWeight: 600,
+    fontSize: "14px",
+    mt: "-20px",
+    color: "red",
+  },
 };
 
 export default loginBoardingScreenStyles;
