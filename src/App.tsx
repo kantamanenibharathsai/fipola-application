@@ -1,11 +1,12 @@
-import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import SplashScreen from './pages/splash_screen/SplashScreen';
-import LoginBoardingScreen from './pages/login_boarding_screen/LoginBoardingScreen';
+import CategoryPage from './pages/category/Category';
 import DelivLoc from './pages/delivery_location_screen/DeliveryLocation';
 import HomePage from './pages/home_page/HomePage';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import LoginBoardingScreen from './pages/login_boarding_screen/LoginBoardingScreen';
 import RegisterPage from "./pages/register_page/Register";
+import SplashScreen from './pages/splash_screen/SplashScreen';
+
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/deliveryloc" element={<DelivLoc />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/category" element={<CategoryPage />} />
       </Routes>
     </BrowserRouter>
 

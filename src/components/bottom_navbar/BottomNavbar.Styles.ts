@@ -1,22 +1,4 @@
 const bottomNavbarStyles = {
-  navContainer: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "82px",
-    background: "#f5bf45",
-    // position: "fixed",
-    // top: 0,
-  },
-
-  navChildCont: {
-    height: "inherit",
-    display: { xs: "flex", lg: "none" },
-    alignItems: "center",
-    justifyContent: "space-between",
-    width: "90%",
-  },
-
   bottomNavContainer: {
     position: "fixed",
     width: "100%",
@@ -26,12 +8,21 @@ const bottomNavbarStyles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    height: "82px",
+    height: "65px",
+    zIndex: 1,
     background: "#f5bf45",
     "& img": {
       width: "26px",
       height: "26px",
     },
+  },
+
+  navChildCont: {
+    height: "inherit",
+    display: { xs: "flex", lg: "none" },
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "90%",
   },
 };
 

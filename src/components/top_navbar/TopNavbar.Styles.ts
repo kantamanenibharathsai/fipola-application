@@ -8,7 +8,7 @@ const topNavbarStyles = {
     height: "82px",
     background: "#f5bf45",
     position: "fixed",
-    // top: 0,
+    top: 0,
     width: "100%",
     zIndex: 1,
   },

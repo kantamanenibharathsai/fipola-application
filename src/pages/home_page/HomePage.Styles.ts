@@ -1,13 +1,14 @@
-import rightArrow from "../../assets/receipes/rightArrow.png";
 import leftArrow from "../../assets/receipes/leftArrow.png";
+import rightArrow from "../../assets/receipes/rightArrow.png";
 
 const homePageStyles = {
   container: {
-    height: "auto",
+    height: "calc(100% - 83px - 65px)",
     width: "100%",
-    position: "relative",
-    top: "83px",
+    mt: "83px",
     // border: "3px solid red",
+    overflowY: "auto",
+    mb: "65px",
   },
 
   navContainer: {
@@ -212,6 +213,9 @@ const homePageStyles = {
       pl: "10px",
       // border: "2px solid green",
     },
+    "& input:nth-of-type(1)": {
+      cursor: "pointer",
+    },
   },
 
   bestSellerCont: {
@@ -279,6 +283,7 @@ const homePageStyles = {
     },
     "& .react-multiple-carousel__arrow--right::before": {
       content: `url(${rightArrow})`,
+      zIndex: "1 !important",
     },
     "& .react-multi-carousel-track": {
       gap: { xs: "15px", sm: "20px", md: "25px", lg: "30px" },
@@ -287,6 +292,9 @@ const homePageStyles = {
     "& .react-multi-carousel-item": {
       width: "auto !important",
     },
+    "& .react-multiple-carousel__arrow": {
+      zIndex: 0,
+    },
   },
 
   pressCornerCont: {
@@ -294,7 +302,7 @@ const homePageStyles = {
     width: "100%",
     height: "auto",
     boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-    mb: 4,
+    // mb: 4,
     mt: "20px",
     py: "20px",
     pb: "30px",
@@ -371,6 +379,148 @@ const homePageStyles = {
       width: "24px",
       height: "24px",
       objectFit: "cover",
+    },
+  },
+
+  pincodeCont: {
+    boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+    width: "100%",
+    // height: "400px",
+    // opacity: 0,
+    background: "#fff",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    // height: "0px",
+    // transition: "1.5s",
+    position: "fixed",
+    bottom: "-300px",
+    left: 0,
+    zIndex: 99,
+    gap: 2,
+    py: 7,
+    px: 1,
+    "& > img": {
+      position: "absolute",
+      right: "20px",
+      top: "20px",
+      width: "28px",
+      height: "28px",
+      cursor: "pointer",
+    },
+    "& p:nth-of-type(1)": {
+      fontFamily: "Montserrat Alternates",
+      fontWeight: 600,
+      fontSize: "20px",
+      textAlign: "center",
+      color: "#18161B",
+    },
+    "& p:nth-of-type(2)": {
+      fontFamily: "Montserrat Alternates",
+      fontWeight: 600,
+      fontSize: "14px",
+      textAlign: "center",
+      color: "#BAB9BB",
+    },
+    "& p": {
+      "&:not(:nth-of-type(1)):not(:nth-of-type(1) + p)": {
+        fontFamily: "Montserrat Alternates",
+        fontWeight: 600,
+        fontSize: "14px",
+        textAlign: "center",
+        color: "#BAB9BB",
+        // border: "2px solid red",
+        mt: "-16px",
+      },
+    },
+  },
+
+  displayBottomPopup: {
+    animation: "displayBottomPopup 1.3s ease 0s",
+    bottom: 0,
+    "@keyframes displayBottomPopup": {
+      from: {
+        bottom: "-300px",
+        opacity: 0.5,
+      },
+      to: {
+        bottom: "0px",
+        opacity: 1,
+      },
+    },
+  },
+
+  closeBottomPopup: {
+    animation: "closeBottomPopup 1.3s ease 0s",
+    "@keyframes closeBottomPopup": {
+      from: {
+        bottom: "0px",
+        opacity: 1,
+      },
+      to: {
+        bottom: "-300px",
+        opacity: 0,
+      },
+    },
+  },
+
+  pinCodeInputCont: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    borderRadius: "36px",
+    width: "100%",
+    background: "#fff",
+    boxShadow: `rgba(100, 100, 111, 0.2) 0px 7px 29px 0px`,
+    pl: "18px",
+    pr: "5px",
+    "& svg": {
+      width: "20px",
+      height: "20px",
+      color: "#18161B",
+    },
+    "& input": {
+      outline: "none",
+      // border: "2px solid red",
+      // flexGrow: 1,
+      fontFamily: "Montserrat Alternates",
+      fontWeight: 300,
+      fontSize: "18px",
+      color: "#18161B",
+      height: "50px",
+      borderRadius: "14px",
+      border: "none",
+      px: "8px",
+      // maxWidth: "calc(100% - 50px -50px)",
+      width: "200px",
+      flexGrow: 1,
+      "&::placeholder": {
+        fontSize: "15px",
+        color: "#000",
+      },
+      "&::-webkit-outer-spin-button": {
+        WebkitAppearance: "none",
+      },
+      "&::-webkit-inner-spin-button": {
+        WebkitAppearance: "none",
+      },
+    },
+    "& > div": {
+      width: "50px",
+      height: "50px",
+      display: "flex",
+      flexDirecton: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      cursor: "pointer",
+      background: "#f62b2a",
+      borderRadius: "50%",
+      "& > img": {
+        color: "#fff",
+        width: "25px",
+        height: "25px",
+      },
     },
   },
 };

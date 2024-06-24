@@ -1,12 +1,11 @@
-import React, { Component, createRef } from "react";
 import { Box, Typography } from "@mui/material";
-import delivLocStyles from "./DeliveryLocation.Styles";
+import React, { Component, createRef } from "react";
+import { connect } from "react-redux";
 import RedButton from "../../components/red_button/RedButton";
 import withRouter from "../../hoc/withRouter";
-import { connect } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/Store";
-import { IState, loginWithMobileNumber, loginWithOTP } from "../../redux/reducers/LoginRegisterSlice";
-
+import { IState, loginWithOTP } from "../../redux/reducers/LoginRegisterSlice";
+import delivLocStyles from "./DeliveryLocation.Styles";
 
 interface MyProps {
     navigate: (path: string) => void;
@@ -26,14 +25,17 @@ interface MyState {
     verificationId: string;
     otpValues: string[];
 }
+
 class DelivLoc extends Component<MyProps, MyState> {
-    state = {
-        isBtnDisabled: true, phoneNum: "", verificationId: "",
+    state: MyState = {
+        isBtnDisabled: true,
+        phoneNum: "",
+        verificationId: "",
         isSpinnerRotating: false,
         timeoutId: null,
         redirectTimeoutId: null,
         otpValues: Array(4).fill("")
-    }
+    };
 
     inputRefs = Array.from({ length: 4 }, () => createRef<HTMLInputElement>());
     buttonRef = createRef<HTMLButtonElement>();
@@ -47,14 +49,17 @@ class DelivLoc extends Component<MyProps, MyState> {
         const inputs = this.inputRefs.map(ref => ref.current!) as HTMLInputElement[];
         const nextInput = inputs[index + 1];
         const prevInput = inputs[index - 1];
+
         if (input.value.length > 1) {
             input.value = input.value[0];
             return;
         }
+
         if (nextInput && nextInput.hasAttribute("disabled") && input.value !== "") {
             nextInput.removeAttribute("disabled");
             nextInput.focus();
         }
+
         if (event.key === "Backspace") {
             inputs.forEach((input, idx) => {
                 if (index <= idx && prevInput) {
@@ -64,7 +69,17 @@ class DelivLoc extends Component<MyProps, MyState> {
                 }
             });
         }
+
         this.updateButtonState();
+    }
+
+    handleChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
+        const { value } = event.target;
+        this.setState(prevState => {
+            const otpValues = [...prevState.otpValues];
+            otpValues[index] = value;
+            return { otpValues };
+        }, this.updateButtonState);
     }
 
     componentDidMount() {
@@ -88,8 +103,8 @@ class DelivLoc extends Component<MyProps, MyState> {
 
     otpNoVerify = () => {
         if (this.props.otpData) {
+            this.props.loginWithOTP({ mobile_number: this.props.otpData.data.mobile_number, otp: this.state.otpValues.toString() });
             this.setState({ otpValues: [] });
-            this.props.loginWithOTP({ mobile_number: this.props.otpData.data.mobile_number, otp: this.props.otpData.data.otp });
         }
     }
 
@@ -106,18 +121,12 @@ class DelivLoc extends Component<MyProps, MyState> {
                 }, 4000);
                 this.setState({ redirectTimeoutId });
             }
-
         }, 3000);
         this.setState({ timeoutId });
     }
 
     render() {
-        const otpValues: number[] = [];
-        if (this.props.otpData) {
-            const otpNumStr = this.props.otpData.data.otp;
-            console.log(otpNumStr)
-            otpValues.push(+otpNumStr[0], +otpNumStr[1], +otpNumStr[2], +otpNumStr[3]);
-        }
+        const { otpValues, isSpinnerRotating, isBtnDisabled } = this.state;
 
         return (
             <Box sx={delivLocStyles.container}>
@@ -129,35 +138,44 @@ class DelivLoc extends Component<MyProps, MyState> {
                         <Typography component={"p"}>+91 8179041437</Typography>
                         <Box sx={delivLocStyles.otpCont}>
                             {this.inputRefs.map((ref, index) => {
-                                return (<Box value={otpValues[index]} component={"input"} type="number" disabled={index !== 0} ref={ref} key={index} />)
-                            }
-                            )}
+                                return (
+                                    <Box
+                                        component={"input"}
+                                        type="number"
+                                        value={otpValues[index]}
+                                        disabled={index !== 0}
+                                        ref={ref}
+                                        key={index}
+                                        onChange={(e) => this.handleChange(e, index)}
+                                    />
+                                );
+                            })}
                         </Box>
                     </Box>
                     <Box sx={delivLocStyles.flexCont}>
                         <Typography component={"p"}>Don't receive OTP <Box id="resend" component={"span"}>Resend</Box></Typography>
-                        <RedButton ref={this.buttonRef} isBtnDisabled={this.state.isBtnDisabled}>Submit</RedButton>
+                        {!isSpinnerRotating && <RedButton ref={this.buttonRef} isBtnDisabled={isBtnDisabled}>Submit</RedButton>}
+                        {isSpinnerRotating && (
+                            <Box sx={delivLocStyles.spinnerContainerStyle}>
+                                <Box sx={delivLocStyles.spinner}></Box>
+                            </Box>
+                        )}
                     </Box>
                 </Box>
             </Box>
-        )
+        );
     }
 }
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-    // handleSendOtp: () => dispatch({ type: 'SEND_OTP' }),
     loginWithOTP: (params: { mobile_number: string, otp: string }) => dispatch(loginWithOTP(params))
 });
 
-
-const mapStateToProps = (state: RootState
-) => ({
-    // loginErrMsg: state.loginRegister.mobileErrMsg,
+const mapStateToProps = (state: RootState) => ({
     otpData: state.loginRegister.otpData,
     apiStatus: state.loginRegister.status,
     token: state.loginRegister.token
 });
-
 
 export default withRouter(
     connect(mapStateToProps, mapDispatchToProps)(DelivLoc)

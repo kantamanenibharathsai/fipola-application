@@ -1,0 +1,73 @@
+const categoryStyles = {
+  bodyCont: {
+    width: "100%",
+    mt: "82px",
+    height: "calc(100vh - 82px - 65px)",
+    display: "flex",
+    flexDirection: "column",
+    gap: 2,
+    // border: "2px solid black",
+    pb: 1,
+  },
+
+  topNavbar: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "82px",
+    background: "#f5bf45",
+    position: "fixed",
+    top: 0,
+    width: "100%",
+    zIndex: 1,
+    "& h2": {
+      fontFamily: "Montserrat Alternates",
+      fontWeight: 600,
+      fontSize: "24px",
+      textAlign: "center",
+      color: "#18161B",
+    },
+  },
+
+  textFieldCont: {
+    boxShadow: "0 0.9px 0.9px -1px black",
+    height: "55px",
+    display: "flex",
+    alignItems: "center",
+    width: "100%",
+    background: "#fff",
+    px: "12px",
+    // border: "1px solid red",
+    "& img": {
+      width: "20px",
+      height: "20px",
+    },
+    "& input": {
+      outline: "none",
+      border: "none",
+      flexGrow: 1,
+      width: "calc(68% - 24px - 20px)",
+      fontFamily: "Montserrat Alternates",
+      fontWeight: 500,
+      fontSize: "15px",
+      color: "#A4A1A1",
+      height: "50px",
+      pl: "10px",
+      // border: "2px solid green",
+    },
+  },
+
+  cardsCont: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
+    gap: 2,
+    overflowY: "auto",
+    // border: "2px solid green",
+    height: "auto",
+    width: { xs: "98%", sm: "88%", md: "75%", lg: "70%", xl: "55%" },
+    // margin: "auto",
+    alignSelf: "center",
+  },
+};
+
+export default categoryStyles;

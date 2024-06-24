@@ -77,14 +77,77 @@ const delivLocStyles = {
       fontSize: "25px",
       color: "#000",
       "&::-webkit-outer-spin-button": {
-        "WebkitAppearance": "none",
+        WebkitAppearance: "none",
         display: "none",
       },
       "&::-webkit-inner-spin-button": {
-        "WebkitAppearance": "none",
+        WebkitAppearance: "none",
         display: "none",
       },
     },
+  },
+
+  spinnerContainerStyle: {
+    background: "#f62b2a",
+    color: "#fff",
+    fontWeight: "600",
+    textTransform: "none",
+    fontSize: "1rem",
+    alignSelf: "strech",
+    position: "relative",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: "30px",
+    width: "100%",
+    height: "55px",
+    fontFamily: "Montserrat Alternates",
+    textAlign: "center",
+  },
+
+  spinner: {
+    "&:before": {
+      content: '""',
+      boxSizing: "border-box",
+      position: "absolute",
+      left: "46%",
+      width: "25px",
+      height: "25px",
+      borderRadius: "50%",
+      border: "2px solid #fff",
+      borderTopColor: "#0e0",
+      borderRightColor: "#0dd",
+      borderBottomColor: "#f90",
+      animation: "spinnerAnim .6s linear infinite",
+      mt: "-12px",
+    },
+    "@keyframes spinnerAnim": {
+      to: {
+        transform: "rotate(360deg)",
+      },
+    },
+  },
+
+  positiveResponse: {
+    fontFamily: "Montserrat Alternates",
+    fontWeight: 600,
+    fontSize: "14px",
+    mt: "-20px",
+    color: "green",
+    // border: "2px solid red"
+    "& span": {
+      fontSize: "18px",
+      color: "black",
+      mx: 1,
+    },
+  },
+
+  negativeResponse: {
+    fontFamily: "Montserrat Alternates",
+    fontWeight: 600,
+    fontSize: "14px",
+    mt: "-20px",
+    color: "red",
   },
 };
 

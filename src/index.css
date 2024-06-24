@@ -8,6 +8,8 @@ body {
   position: "relative";
   /* height: auto;
   width: 100%; */
+  position: relative;
+  overflow: hidden;
 }
 
 code {
