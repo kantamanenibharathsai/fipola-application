@@ -6,6 +6,7 @@ import HomePage from './pages/home_page/HomePage';
 import LoginBoardingScreen from './pages/login_boarding_screen/LoginBoardingScreen';
 import RegisterPage from "./pages/register_page/Register";
 import SplashScreen from './pages/splash_screen/SplashScreen';
+import CartPage from './pages/cart_page/CartPage';
 
 
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/category" element={<CategoryPage />} />
+        <Route path="/cart" element={<CartPage />} />
       </Routes>
     </BrowserRouter>
 

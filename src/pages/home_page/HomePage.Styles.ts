@@ -1,3 +1,4 @@
+import zIndex from "@mui/material/styles/zIndex";
 import leftArrow from "../../assets/receipes/leftArrow.png";
 import rightArrow from "../../assets/receipes/rightArrow.png";
 
@@ -382,6 +383,15 @@ const homePageStyles = {
     },
   },
 
+  shadowCont: {
+    height: "100vh",
+    background: "rgba(0, 0, 0, 0.2)",
+    // border: "3px solid green",
+    width: "100%",
+    position: "relative",
+    zIndex: 99999
+  },
+
   pincodeCont: {
     boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
     width: "100%",
@@ -470,7 +480,7 @@ const homePageStyles = {
     alignItems: "center",
     justifyContent: "space-between",
     borderRadius: "36px",
-    width: "100%",
+    width: { xs: "100%", sm: "80%", md: "50%", lg: "45%", xl: "30%" },
     background: "#fff",
     boxShadow: `rgba(100, 100, 111, 0.2) 0px 7px 29px 0px`,
     pl: "18px",

@@ -65,8 +65,39 @@ const categoryStyles = {
     // border: "2px solid green",
     height: "auto",
     width: { xs: "98%", sm: "88%", md: "75%", lg: "70%", xl: "55%" },
-    // margin: "auto",
     alignSelf: "center",
+  },
+
+  centerCont: {
+    width: { xs: "98%", sm: "88%", md: "75%", lg: "70%", xl: "55%" },
+    display: "grid",
+    placeItems: "center",
+    flexGrow: 1,
+    // border: "2px solid green",
+    alignSelf: "center",
+  },
+
+  spinner: {
+    "&:before": {
+      content: '""',
+      boxSizing: "border-box",
+      position: "absolute",
+      left: "50%",
+      width: "30px",
+      height: "30px",
+      borderRadius: "50%",
+      border: "2px solid #000",
+      borderTopColor: "#0e0",
+      borderRightColor: "#0dd",
+      borderBottomColor: "#f90",
+      animation: "spinnerAnim .6s linear infinite",
+      mt: "-25px"
+    },
+    "@keyframes spinnerAnim": {
+      to: {
+        transform: "rotate(360deg)",
+      },
+    },
   },
 };
 

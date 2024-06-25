@@ -33,17 +33,19 @@ class HomePage extends Component<{}, HomePageState> {
     renderPincodePopUpJSX = () => {
         console.log(this.state.isPincodePopupOpened);
         return (
-            <Box sx={{ ...homePageStyles.pincodeCont, ...(this.state.isPincodePopupOpened === true && homePageStyles.displayBottomPopup), ...(this.state.isPincodePopupOpened === false && homePageStyles.closeBottomPopup) }}>
-                <Box onClick={this.closePincodePopupHandler} component="img" alt="close-icon" src={closeImg} />
-                <Typography>Delivery Location</Typography>
-                <Typography>Serviceable Locations : Bengaluru |</Typography>
-                <Typography>Chennai | Coimbatore | Hysrabad</Typography>
-                <Typography>Puducherry | Turpur | Vellore</Typography>
-                <Box sx={homePageStyles.pinCodeInputCont}>
-                    <Box component={"img"} src={locationRed} alt="location-icon" />
-                    <Box component={"input"} placeholder="Enter PIN Code" type="number" />
-                    <Box>
-                        <Box component={"img"} src={arrowRightImg} alt="arrow-right-icon" />
+            <Box>
+                <Box sx={{ ...homePageStyles.pincodeCont, ...(this.state.isPincodePopupOpened === true && homePageStyles.displayBottomPopup), ...(this.state.isPincodePopupOpened === false && homePageStyles.closeBottomPopup) }}>
+                    <Box onClick={this.closePincodePopupHandler} component="img" alt="close-icon" src={closeImg} />
+                    <Typography>Delivery Location</Typography>
+                    <Typography>Serviceable Locations : Bengaluru |</Typography>
+                    <Typography>Chennai | Coimbatore | Hysrabad</Typography>
+                    <Typography>Puducherry | Turpur | Vellore</Typography>
+                    <Box sx={homePageStyles.pinCodeInputCont}>
+                        <Box component={"img"} src={locationRed} alt="location-icon" />
+                        <Box component={"input"} placeholder="Enter PIN Code" type="number" />
+                        <Box>
+                            <Box component={"img"} src={arrowRightImg} alt="arrow-right-icon" />
+                        </Box>
                     </Box>
                 </Box>
             </Box>
@@ -53,7 +55,7 @@ class HomePage extends Component<{}, HomePageState> {
 
     render() {
         return (
-            <>
+            <Box>
                 <TopNavbar />
                 <Box sx={{ ...homePageStyles.container }}>
                     <Box sx={homePageStyles.searchPincodeCont}>
@@ -99,7 +101,7 @@ class HomePage extends Component<{}, HomePageState> {
                 <BottomNavbar />
                 {this.state.isPincodePopupOpened === true && this.renderPincodePopUpJSX()}
                 {this.state.isPincodePopupOpened === false && this.renderPincodePopUpJSX()}
-            </>
+            </Box>
         );
     }
 }

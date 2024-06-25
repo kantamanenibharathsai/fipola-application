@@ -7,10 +7,10 @@ import { loginWithMobileNumber } from "../../redux/reducers/LoginRegisterSlice";
 
 interface MyProps {
     children: React.ReactNode;
-    isBtnDisabled: boolean;
+    isBtnDisabled?: boolean;
     handleSendOtp?: () => void;
     forwardedRef?: Ref<HTMLButtonElement>;
-    loginWithMobileNumber: (mobileNo: string) => void;
+    loginWithMobileNumber?: (mobileNo: string) => void;
 }
 
 class RedButton extends Component<MyProps> {
