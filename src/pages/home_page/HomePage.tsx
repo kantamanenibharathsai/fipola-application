@@ -7,9 +7,9 @@ import pincodeLogo from "../../assets/home/location.png";
 import locationRed from "../../assets/home/locationRed.png";
 import pressCorner from "../../assets/home/pressCorner.png";
 import searchLogo from "../../assets/home/search.png";
+import BestSellerCarousel from "../../components/best_seller_carousel/BestSellerCarousel";
 import BottomNavbar from "../../components/bottom_navbar/BottomNavbar";
 import DraggableImageSlider from "../../components/draggable_slider/DraggableSlider";
-import Carousel from "../../components/draggable_slider_2/DraggableSlider";
 import RecipesCarousel from "../../components/receipes/ReceipesCarousel";
 import TopNavbar from "../../components/top_navbar/TopNavbar";
 import homePageStyles from "./HomePage.Styles";
@@ -71,8 +71,10 @@ class HomePage extends Component<{}, HomePageState> {
                     </Box>
                     <DraggableImageSlider />
                     <Box sx={homePageStyles.bestSellerCont}>
-                        <Typography sx={homePageStyles.bestSellersText}>Best Sellers</Typography>
-                        <Carousel />
+                        <Box id="bestSellerChildCont">
+                            <Typography sx={homePageStyles.bestSellersText}>Best Sellers</Typography>
+                            <BestSellerCarousel />
+                        </Box>
                     </Box>
                     <Box sx={homePageStyles.receipesCont}>
                         <Box id="receipeChildCont">

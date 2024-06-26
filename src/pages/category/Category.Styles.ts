@@ -66,6 +66,12 @@ const categoryStyles = {
     height: "auto",
     width: { xs: "98%", sm: "88%", md: "75%", lg: "70%", xl: "55%" },
     alignSelf: "center",
+    transformStyle: "preserve-3d",
+    transform: "perspective(1000px)",
+    // "& div:has(+ *:hover) img": {
+    //   filter: "brightness(1)",
+    //   transform: "scale(1.9)",
+    // },
   },
 
   centerCont: {
@@ -82,7 +88,7 @@ const categoryStyles = {
       content: '""',
       boxSizing: "border-box",
       position: "absolute",
-      left: "50%",
+      left: { xs: "47%", lg: "50%" },
       width: "30px",
       height: "30px",
       borderRadius: "50%",
@@ -91,7 +97,7 @@ const categoryStyles = {
       borderRightColor: "#0dd",
       borderBottomColor: "#f90",
       animation: "spinnerAnim .6s linear infinite",
-      mt: "-25px"
+      mt: "-25px",
     },
     "@keyframes spinnerAnim": {
       to: {

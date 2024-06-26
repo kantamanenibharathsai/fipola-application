@@ -22,7 +22,9 @@ class CategoryCard extends Component<MyProps, {}> {
 
         return (
             <Box sx={categoryCardStyles.cardCont}>
-                <Box component="img" src={categoryImg} alt={categoryName} />
+                <Box>
+                    <Box component="img" src={categoryImg} alt={categoryName} />
+                </Box>
                 <Typography component="p">{categoryName}</Typography>
             </Box>
         )

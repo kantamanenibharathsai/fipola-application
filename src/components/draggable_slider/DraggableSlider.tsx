@@ -1,6 +1,5 @@
 import React, { Component, createRef } from 'react';
-import './draggableSlider.css'; // Assuming the CSS is in a file named style.css
-import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
+import './draggableSlider.css';
 
 type State = {
     isDragStart: boolean;
@@ -36,8 +35,6 @@ class DraggableImageSlider extends Component<{}, State> {
     componentDidMount() {
         this.showHideIcons();
         window.addEventListener('resize', this.showHideIcons);
-
-        // Add passive: false event listeners for touch events
         const carousel = this.carouselRef.current;
         if (carousel) {
             carousel.addEventListener('touchmove', this.dragging, { passive: false });
@@ -47,8 +44,6 @@ class DraggableImageSlider extends Component<{}, State> {
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.showHideIcons);
-
-        // Remove event listeners
         const carousel = this.carouselRef.current;
         if (carousel) {
             carousel.removeEventListener('touchmove', this.dragging);
@@ -136,16 +131,12 @@ class DraggableImageSlider extends Component<{}, State> {
         const { currentSlide } = this.state;
         return (
             <div className="wrapper">
-                {/* <span id="left" ref={this.leftArrowRef} onClick={() => this.handleArrowClick('left')}>
-                    <FaAngleLeft />
-                </span> */}
                 <div
                     className="carousel"
                     ref={this.carouselRef}
                     onMouseDown={this.dragStart}
                     onTouchStart={this.dragStart}
                     onMouseMove={(e) => this.dragging(e.nativeEvent as MouseEvent)}
-                    // onTouchMove={(e) => this.dragging(e.nativeEvent as TouchEvent)}
                 >
                     {this.images.map((src, index) => (
                         <img
@@ -157,9 +148,6 @@ class DraggableImageSlider extends Component<{}, State> {
                         />
                     ))}
                 </div>
-                {/* <span id="right" ref={this.rightArrowRef} onClick={() => this.handleArrowClick('right')}>
-                    <FaAngleRight />
-                </span> */}
                 <div className="dots">
                     {this.images.map((_, index) => (
                         <span
@@ -177,185 +165,3 @@ class DraggableImageSlider extends Component<{}, State> {
 export default DraggableImageSlider;
 
 
-
-
-
-
-
-
-
-// import React, { Component } from 'react';
-// import styles from './App.module.css';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
-// import img1 from './images/img-1.jpg';
-// import img2 from './images/img-2.jpg';
-// import img3 from './images/img-3.jpg';
-// import img4 from './images/img-4.jpg';
-// import img5 from './images/img-5.jpg';
-// import img6 from './images/img-6.jpg';
-
-// type Card = {
-//   img: string;
-//   name: string;
-//   position: string;
-// };
-
-// type State = {
-//   isDragging: boolean;
-//   startX: number;
-//   startScrollLeft: number;
-//   timeoutId: NodeJS.Timeout | null;
-// };
-
-// class App extends Component<{}, State> {
-//   carouselRef: React.RefObject<HTMLUListElement>;
-//   wrapperRef: React.RefObject<HTMLDivElement>;
-//   cardWidth: number;
-//   cardPerView: number;
-//   isAutoPlay: boolean;
-
-//   constructor(props: {}) {
-//     super(props);
-//     this.state = {
-//       isDragging: false,
-//       startX: 0,
-//       startScrollLeft: 0,
-//       timeoutId: null,
-//     };
-
-//     this.carouselRef = React.createRef();
-//     this.wrapperRef = React.createRef();
-//     this.cardWidth = 0;
-//     this.cardPerView = 0;
-//     this.isAutoPlay = true;
-//   }
-
-//   componentDidMount() {
-//     if (this.carouselRef.current) {
-//       this.cardWidth = this.carouselRef.current.querySelector('li')!.offsetWidth;
-//       this.cardPerView = Math.round(this.carouselRef.current.offsetWidth / this.cardWidth);
-
-//       this.setupCarousel();
-//       this.autoPlay();
-//     }
-//   }
-
-//   setupCarousel = () => {
-//     const carousel = this.carouselRef.current;
-//     const children = Array.from(carousel!.children);
-
-//     children.slice(-this.cardPerView).reverse().forEach(card => {
-//       carousel!.insertAdjacentHTML('afterbegin', card.outerHTML);
-//     });
-
-//     children.slice(0, this.cardPerView).forEach(card => {
-//       carousel!.insertAdjacentHTML('beforeend', card.outerHTML);
-//     });
-
-//     carousel!.classList.add(styles.noTransition);
-//     carousel!.scrollLeft = carousel!.offsetWidth;
-//     carousel!.classList.remove(styles.noTransition);
-//   };
-
-//   handleArrowClick = (direction: string) => {
-//     if (this.carouselRef.current) {
-//       this.carouselRef.current.scrollLeft += direction === 'left' ? -this.cardWidth : this.cardWidth;
-//     }
-//   };
-
-//   dragStart = (e: React.MouseEvent) => {
-//     if (this.carouselRef.current) {
-//       this.setState({
-//         isDragging: true,
-//         startX: e.pageX,
-//         startScrollLeft: this.carouselRef.current.scrollLeft,
-//       });
-//       this.carouselRef.current.classList.add(styles.dragging);
-//     }
-//   };
-
-//   dragging = (e: React.MouseEvent) => {
-//     if (!this.state.isDragging || !this.carouselRef.current) return;
-
-//     this.carouselRef.current.scrollLeft = this.state.startScrollLeft - (e.pageX - this.state.startX);
-//   };
-
-//   dragStop = () => {
-//     this.setState({ isDragging: false });
-//     if (this.carouselRef.current) {
-//       this.carouselRef.current.classList.remove(styles.dragging);
-//     }
-//   };
-
-//   infiniteScroll = () => {
-//     if (this.carouselRef.current) {
-//       if (this.carouselRef.current.scrollLeft === 0) {
-//         this.carouselRef.current.classList.add(styles.noTransition);
-//         this.carouselRef.current.scrollLeft = this.carouselRef.current.scrollWidth - (2 * this.carouselRef.current.offsetWidth);
-//         this.carouselRef.current.classList.remove(styles.noTransition);
-//       } else if (Math.ceil(this.carouselRef.current.scrollLeft) === this.carouselRef.current.scrollWidth - this.carouselRef.current.offsetWidth) {
-//         this.carouselRef.current.classList.add(styles.noTransition);
-//         this.carouselRef.current.scrollLeft = this.carouselRef.current.offsetWidth;
-//         this.carouselRef.current.classList.remove(styles.noTransition);
-//       }
-
-//       if (!this.wrapperRef.current!.matches(':hover')) {
-//         this.autoPlay();
-//       }
-//     }
-//   };
-
-//   autoPlay = () => {
-//     if (window.innerWidth < 800 || !this.isAutoPlay) return;
-
-//     if (this.carouselRef.current) {
-//       this.setState({
-//         timeoutId: setTimeout(() => {
-//           this.carouselRef.current!.scrollLeft += this.cardWidth;
-//         }, 2500),
-//       });
-//     }
-//   };
-
-//   handleMouseEnter = () => {
-//     if (this.state.timeoutId) {
-//       clearTimeout(this.state.timeoutId);
-//     }
-//   };
-
-//   handleMouseLeave = () => {
-//     this.autoPlay();
-//   };
-
-//   render() {
-//     const cards: Card[] = [
-//       { img: img1, name: 'Blanche Pearson', position: 'Sales Manager' },
-//       { img: img2, name: 'Joenas Brauers', position: 'Web Developer' },
-//       { img: img3, name: 'Lariach French', position: 'Online Teacher' },
-//       { img: img4, name: 'James Khosravi', position: 'Freelancer' },
-//       { img: img5, name: 'Kristina Zasiadko', position: 'Bank Manager' },
-//       { img: img6, name: 'Donald Horton', position: 'App Designer' },
-//     ];
-
-//     return (
-//       <div className={styles.wrapper} ref={this.wrapperRef} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
-//         <FontAwesomeIcon icon={faAngleLeft} className={styles.arrow} onClick={() => this.handleArrowClick('left')} />
-//         <ul className={styles.carousel} ref={this.carouselRef} onMouseDown={this.dragStart} onMouseMove={this.dragging} onMouseUp={this.dragStop} onScroll={this.infiniteScroll}>
-//           {cards.map((card, index) => (
-//             <li className={styles.card} key={index}>
-//               <div className={styles.img}>
-//                 <img src={card.img} alt="img" draggable="false" />
-//               </div>
-//               <h2>{card.name}</h2>
-//               <span>{card.position}</span>
-//             </li>
-//           ))}
-//         </ul>
-//         <FontAwesomeIcon icon={faAngleRight} className={styles.arrow} onClick={() => this.handleArrowClick('right')} />
-//       </div>
-//     );
-//   }
-// }
-
-// export default App;

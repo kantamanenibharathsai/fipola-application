@@ -1,4 +1,3 @@
-import zIndex from "@mui/material/styles/zIndex";
 import leftArrow from "../../assets/receipes/leftArrow.png";
 import rightArrow from "../../assets/receipes/rightArrow.png";
 
@@ -220,13 +219,31 @@ const homePageStyles = {
   },
 
   bestSellerCont: {
-    pl: { xs: "20px" },
-    mt: 3,
-    display: "flex",
-    flexDirection: "column",
-    // alignItems: "center",
-    // justifyContent: "center",
-    // border: "2px solid green",
+    position: "relative",
+    mt: "30px",
+    width: "99%",
+    boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+    pl: { xs: "5%", sm: 0 },
+    pt: "20px",
+    pb: "20px",
+    "& #bestSellerChildCont": {
+      width: "auto",
+      position: "relative",
+      maxWidth: { xs: "100%", sm: "90%", md: "80%", lg: "70%", xl: "50%" },
+      margin: { sm: "auto" },
+    },
+    "& .react-multi-carousel-list": {
+      position: "static",
+    },
+    "& .react-multi-carousel-track": {
+      gap: { xs: "15px", sm: "20px", md: "25px", lg: "30px" },
+    },
+    "& .react-multi-carousel-item": {
+      width: "auto !important",
+    },
+    "& .react-multiple-carousel__arrow": {
+      display: "none",
+    },
   },
 
   bestSellersText: {
@@ -237,13 +254,14 @@ const homePageStyles = {
     width: { xs: "100%", sm: "75%", md: "800px" },
     // border: "2px solid green",
     margin: "auto",
+    mb: 2,
   },
 
   receipesCont: {
     position: "relative",
     // border: "2px solid green",
     mt: "30px",
-    width: "100%",
+    width: "99%",
     boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
     pl: { xs: "5%", sm: 0 },
     pt: "20px",
@@ -315,7 +333,7 @@ const homePageStyles = {
     margin: "auto",
     display: "flex",
     flexDirection: "column",
-    width: { xs: "90%", sm: "319px" },
+    width: { xs: "87%", sm: "319px" },
     height: "auto",
     gap: "15px",
     // border: "1px solid red",
@@ -389,7 +407,7 @@ const homePageStyles = {
     // border: "3px solid green",
     width: "100%",
     position: "relative",
-    zIndex: 99999
+    zIndex: 99999,
   },
 
   pincodeCont: {

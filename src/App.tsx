@@ -7,6 +7,8 @@ import LoginBoardingScreen from './pages/login_boarding_screen/LoginBoardingScre
 import RegisterPage from "./pages/register_page/Register";
 import SplashScreen from './pages/splash_screen/SplashScreen';
 import CartPage from './pages/cart_page/CartPage';
+import ProfilePage from './pages/profile_page/ProfilePage';
+import RelatedCategory from './pages/related_category/RelatedCategory';
 
 
 
@@ -22,6 +24,8 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/category" element={<CategoryPage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/relatedCategory" element={<RelatedCategory />} />
       </Routes>
     </BrowserRouter>
 
