@@ -4,36 +4,17 @@ const relatedCategoryStyles = {
     width: "100%",
   },
 
-  topNavbar: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "70px",
-    background: "#f5bf45",
-    position: "fixed",
-    top: 0,
-    width: "100%",
-    zIndex: 1,
-    "& > h2": {
-      fontFamily: "Montserrat Alternates",
-      fontWeight: 600,
-      fontSize: "24px",
-      textAlign: "center",
-      color: "#18161B",
-    },
-  },
-
   bodyCont: {
     width: "100%",
     mt: "80px",
     height: "calc(100vh - 80px)",
     display: "flex",
     alignItems: "center",
-    // border: "8px solid black",
+    //
     background: "#fafafa",
     justifyContent: "center",
     position: "fixed",
-    bottom: "1px"
+    bottom: "1px",
   },
 
   categoryProductsCont: {
@@ -41,7 +22,7 @@ const relatedCategoryStyles = {
     overflowY: "scroll",
     display: "grid",
     gridTemplateColumns: "repeat(auto-fill, minmax(146px, 1fr))",
-    gap: {xs: 5, sm: 4, md: 5, lg: 5, xl: 10},
+    gap: { xs: 5, sm: 4, md: 5, lg: 5, xl: 10 },
     mt: 6,
     // alignItems: "center",
     justifyItems: "center",
@@ -51,7 +32,7 @@ const relatedCategoryStyles = {
     "&::-webkit-scrollbar": {
       width: "4px",
       borderRadius: "20px",
-      display: "none"
+      display: "none",
     },
     "&::-webkit-scrollbar-track": {
       background: "#F5BF45",
