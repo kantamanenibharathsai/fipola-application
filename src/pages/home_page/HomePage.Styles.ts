@@ -7,8 +7,9 @@ const homePageStyles = {
     width: "100%",
     mt: "83px",
     // border: "3px solid red",
-    overflowY: "auto",
+    // overflowY: "auto",
     mb: "65px",
+    position: "relative",
   },
 
   navContainer: {
@@ -349,7 +350,7 @@ const homePageStyles = {
   cardCont: {
     boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
     borderRadius: "5px",
-    position: "relative",
+    // position: "relative",
     "& img": {
       width: "100%",
       objectFit: "cover",
@@ -391,23 +392,29 @@ const homePageStyles = {
     justifyContent: "center",
     width: "50px",
     height: "50px",
-    position: "absolute",
-    bottom: "-20px",
-    right: "-20px",
+    position: "fixed",
+    bottom: "85px",
+    right: { xs: "23px", sm: "30px", md: "35px" },
+    zIndex: 99,
     "& > img": {
       width: "24px",
       height: "24px",
       objectFit: "cover",
+      cursor: "pointer",
     },
   },
 
   shadowCont: {
     height: "100vh",
-    background: "rgba(0, 0, 0, 0.2)",
+    background: "rgba(0, 0, 0, 0.5)",
     // border: "3px solid green",
     width: "100%",
-    position: "relative",
-    zIndex: 99999,
+    // position: "relative",
+    zIndex: 999999,
+    position: "fixed",
+    bottom: "-300px",
+    left: 0,
+    // zIndex: 99,
   },
 
   pincodeCont: {
@@ -425,7 +432,7 @@ const homePageStyles = {
     position: "fixed",
     bottom: "-300px",
     left: 0,
-    zIndex: 99,
+    zIndex: 9999999,
     gap: 2,
     py: 7,
     px: 1,
@@ -471,10 +478,12 @@ const homePageStyles = {
       from: {
         bottom: "-300px",
         opacity: 0.5,
+        display: "none",
       },
       to: {
         bottom: "0px",
         opacity: 1,
+        display: "flex",
       },
     },
   },
@@ -485,10 +494,13 @@ const homePageStyles = {
       from: {
         bottom: "0px",
         opacity: 1,
+        // display: "none",
       },
       to: {
         bottom: "-300px",
         opacity: 0,
+        // display: "none",
+        zIndex: 0,
       },
     },
   },
@@ -550,6 +562,28 @@ const homePageStyles = {
         height: "25px",
       },
     },
+  },
+
+  iconsImgsCont: {
+    position: "fixed",
+    width: "55px",
+    height: "205px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    bottom: "74px",
+    right: { xs: "18px", sm: "30px", md: "35px" },
+    zIndex: 99,
+    "& > img": {
+      width: "50px",
+      height: "50px",
+      objectFit: "cover",
+      cursor: "pointer",
+    },
+  },
+
+  opaqueCont: {
+    background: "rgba(0, 0, 0, 0.3)",
   },
 };
 

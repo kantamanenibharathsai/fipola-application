@@ -5,18 +5,30 @@ const singleProductScreenStyles = {
   },
 
   bodyCont: {
-    height: "99.9vh",
-    width: { xs: "100%", sm: "80%", md: "70%", lg: "60%", xl: "50%" },
-    border: "1px solid #C4C4C4",
+    height: "100vh",
+    width: { xs: "100%", sm: "75%", md: "50%", lg: "100%", xl: "100%" },
+    // border: "1px solid #C4C4C4",
+    margin: "auto",
+    "& > div:nth-of-type(2)": {
+      position: { lg: "absolute" },
+      right: { lg: "20vh" },
+      top: { lg: "35vh" },
+      zIndex: { lg: 99 },
+      width: { lg: "auto" },
+      height: { lg: "auto" },
+    },
   },
 
   cont: {
-    height: "50%",
-    border: "1px solid #C4C4C4",
+    height: { xs: "50%", lg: "100%" },
+    // border: "1px solid red",
   },
 
   cardCont: {
+    // mt: "-60px",
     height: "400px",
+    position: "relative",
+    top: "-60px",
     boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
     borderRadius: "15px",
     width: "90%",
@@ -27,7 +39,8 @@ const singleProductScreenStyles = {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-between",
-    // gap: 1,
+    gap: 1.5,
+    // border: "2px solid green",
     "& > h2": {
       color: "#18161B",
       fontFamily: "Montserrat Alternates",
@@ -93,7 +106,7 @@ const singleProductScreenStyles = {
     alignItems: "center",
     justifyContent: "space-evenly",
     borderRadius: "60px",
-    py: 2.0,
+    py: 1.7,
     mt: 1,
     "& #icon": {
       cursor: "pointer",

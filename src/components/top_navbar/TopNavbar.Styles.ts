@@ -76,7 +76,7 @@ const topNavbarStyles = {
     position: "fixed",
     left: 0,
     top: 0,
-    zIndex: 1,
+    zIndex: 999,
     transition: "0.9s",
     display: { lg: "none" },
     // border: "3px solid red",
@@ -99,6 +99,7 @@ const topNavbarStyles = {
     transition: "0.8s ease all",
     overflowX: "hidden",
     background: "#fff",
+    zIndex: 999
   },
 
   logoCont: {

@@ -1,10 +1,13 @@
 import { Box, Typography } from "@mui/material";
 import { Component } from "react";
 import arrowRightImg from "../../assets/home/arrowback.png";
+import closeIconImg from "../../assets/home/closeIcon.png";
 import closeImg from "../../assets/home/closeImg.png";
 import headsetImg from "../../assets/home/headset.png";
 import pincodeLogo from "../../assets/home/location.png";
 import locationRed from "../../assets/home/locationRed.png";
+import messageIconImg from "../../assets/home/message.png";
+import phoneIconImg from "../../assets/home/phone.png";
 import pressCorner from "../../assets/home/pressCorner.png";
 import searchLogo from "../../assets/home/search.png";
 import BestSellerCarousel from "../../components/best_seller_carousel/BestSellerCarousel";
@@ -14,13 +17,13 @@ import RecipesCarousel from "../../components/receipes/ReceipesCarousel";
 import TopNavbar from "../../components/top_navbar/TopNavbar";
 import homePageStyles from "./HomePage.Styles";
 
-
 interface HomePageState {
     isPincodePopupOpened: boolean | null;
+    isSpeedDialOpened: boolean;
 }
 
 class HomePage extends Component<{}, HomePageState> {
-    state: HomePageState = { isPincodePopupOpened: null }
+    state: HomePageState = { isPincodePopupOpened: null, isSpeedDialOpened: false }
 
     openPincodePopupHandler = () => {
         this.setState({ isPincodePopupOpened: true });
@@ -33,7 +36,7 @@ class HomePage extends Component<{}, HomePageState> {
     renderPincodePopUpJSX = () => {
         console.log(this.state.isPincodePopupOpened);
         return (
-            <Box>
+            <Box sx={{ ...homePageStyles.shadowCont, ...(this.state.isPincodePopupOpened === true && homePageStyles.displayBottomPopup), ...(this.state.isPincodePopupOpened === false && homePageStyles.closeBottomPopup), opacity: this.state.isPincodePopupOpened ? 1 : 0 }}>
                 <Box sx={{ ...homePageStyles.pincodeCont, ...(this.state.isPincodePopupOpened === true && homePageStyles.displayBottomPopup), ...(this.state.isPincodePopupOpened === false && homePageStyles.closeBottomPopup) }}>
                     <Box onClick={this.closePincodePopupHandler} component="img" alt="close-icon" src={closeImg} />
                     <Typography>Delivery Location</Typography>
@@ -52,12 +55,26 @@ class HomePage extends Component<{}, HomePageState> {
         )
     }
 
+    handleOpenSpeedDial = () => {
+        this.setState({ isSpeedDialOpened: true })
+    }
+
+    handleCloseSpeedDial = () => {
+        this.setState({ isSpeedDialOpened: false })
+    }
+
 
     render() {
         return (
             <Box>
-                <TopNavbar />
-                <Box sx={{ ...homePageStyles.container }}>
+                <TopNavbar isSpeedDialOpened={this.state.isSpeedDialOpened} />
+                <Box sx={{
+                    ...homePageStyles.container, overflow: this.state.isSpeedDialOpened ? "hidden" : "auto",
+                    position: this.state.isSpeedDialOpened ? "fixed" : "relative",
+                    ...(this.state.isSpeedDialOpened && homePageStyles.opaqueCont)
+                    // width: "100%",
+                    // height: "100%"
+                }}>
                     <Box sx={homePageStyles.searchPincodeCont}>
                         <Box sx={homePageStyles.textFieldCont}>
                             <Box component={"img"} src={searchLogo} alt="search-logo" />
@@ -93,14 +110,20 @@ class HomePage extends Component<{}, HomePageState> {
                                         <Typography component={"p"}>September 09, 2021 | The Hindu</Typography>
                                     </Box>
                                 </Box>
-                                <Box sx={homePageStyles.headsetImgCont}>
+                                <Box onClick={this.handleOpenSpeedDial} sx={{ ...homePageStyles.headsetImgCont, display: this.state.isSpeedDialOpened ? "none" : "flex" }}>
                                     <Box component="img" src={headsetImg} alt="headset" />
+                                </Box>
+
+                                <Box sx={{ ...homePageStyles.iconsImgsCont, display: this.state.isSpeedDialOpened ? "flex" : "none" }}>
+                                    <Box component="img" src={messageIconImg} alt="message-icon-img" />
+                                    <Box component="img" src={phoneIconImg} alt="phone-icon-img" />
+                                    <Box component="img" src={closeIconImg} alt="close-icon-img" onClick={this.handleCloseSpeedDial} />
                                 </Box>
                             </Box>
                         </Box>
                     </Box>
                 </Box>
-                <BottomNavbar />
+                <BottomNavbar isSpeedDialOpened={this.state.isSpeedDialOpened} />
                 {this.state.isPincodePopupOpened === true && this.renderPincodePopUpJSX()}
                 {this.state.isPincodePopupOpened === false && this.renderPincodePopUpJSX()}
             </Box>

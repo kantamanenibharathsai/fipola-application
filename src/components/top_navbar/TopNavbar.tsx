@@ -1,17 +1,17 @@
 import { Box, Button, Stack } from "@mui/material";
 import React, { Component, RefObject } from "react";
-import hamburgerLogo from "../../assets/navbar/Segment.png";
-import fipolaLogo from "../../assets/splash_screen/fipolaLogo.png";
 import mansLogo from "../../assets/navbar/Profile.png";
-import homeLogo from "../../assets/navbar/homeLogo.png";
+import hamburgerLogo from "../../assets/navbar/Segment.png";
 import aboutLogo from "../../assets/navbar/about.png";
-import faqLogo from "../../assets/navbar/faq.png";
+import certificatesLogo from "../../assets/navbar/certificates.png";
 import contactLogo from "../../assets/navbar/contact.png";
+import faqLogo from "../../assets/navbar/faq.png";
 import fipolaOnWheelsLogo from "../../assets/navbar/fipolaOnWheels.png";
+import franchiseLogo from "../../assets/navbar/franchise.png";
+import homeLogo from "../../assets/navbar/homeLogo.png";
 import orderHistLogo from "../../assets/navbar/orderHistory.png";
 import termsAndConditLogo from "../../assets/navbar/termsAndCondit.png";
-import certificatesLogo from "../../assets/navbar/certificates.png";
-import franchiseLogo from "../../assets/navbar/franchise.png";
+import fipolaLogo from "../../assets/splash_screen/fipolaLogo.png";
 import topNavbarStyles from "./TopNavbar.Styles";
 
 
@@ -19,7 +19,11 @@ interface NavbarState {
     isDrawerDisplayed: boolean;
 }
 
-class TopNavbar extends Component<{}, NavbarState> {
+interface NavbarProps {
+    isSpeedDialOpened?: boolean;
+}
+
+class TopNavbar extends Component<NavbarProps, NavbarState> {
     private drawerRef: RefObject<HTMLDivElement>;
 
     constructor(props: {}) {
@@ -44,7 +48,7 @@ class TopNavbar extends Component<{}, NavbarState> {
 
     handleMobileDrawerHamburg = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.stopPropagation();
-        this.setState({ isDrawerDisplayed: true });
+        this.props.isSpeedDialOpened === false && this.setState({ isDrawerDisplayed: true });
     };
 
     renderMobileDrawer = () => (
@@ -125,7 +129,7 @@ class TopNavbar extends Component<{}, NavbarState> {
     render() {
         return (
             <>
-                <Box sx={topNavbarStyles.navContainer}>
+                <Box sx={{ ...topNavbarStyles.navContainer, background: this.props.isSpeedDialOpened ? "rgba(0, 0, 0, 0.3)" : "#f5bf45" }}>
                     <Box sx={topNavbarStyles.navChildCont}>
                         <Box
                             onClick={this.handleMobileDrawerHamburg}

@@ -3,6 +3,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import { Box, Divider, Typography } from "@mui/material";
 import { Component } from "react";
 import singleProductScreenStyles from "./SingleProductScreen.Styles";
+import SingleProductCarousel from '../../components/single_product_carousel/SingleProductCarousel';
 
 
 
@@ -16,7 +17,7 @@ class SingleProductScreen extends Component {
             <Box sx={singleProductScreenStyles.mainCont}>
                 <Box sx={singleProductScreenStyles.bodyCont}>
                     <Box sx={singleProductScreenStyles.cont}>
-
+                        <SingleProductCarousel/>
                     </Box>
                     <Box sx={singleProductScreenStyles.cont}>
                         <Box sx={singleProductScreenStyles.cardCont}>
