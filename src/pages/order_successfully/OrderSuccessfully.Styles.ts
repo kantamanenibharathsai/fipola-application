@@ -61,6 +61,7 @@ const orderSuccessStyles = {
       height: "70px",
       position: "absolute",
       bottom: "-35px",
+      cursor: "pointer",
     },
   },
 };

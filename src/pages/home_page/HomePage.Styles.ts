@@ -395,7 +395,7 @@ const homePageStyles = {
     position: "fixed",
     bottom: "85px",
     right: { xs: "23px", sm: "30px", md: "35px" },
-    zIndex: 99,
+    zIndex: 99999,
     "& > img": {
       width: "24px",
       height: "24px",
@@ -404,36 +404,99 @@ const homePageStyles = {
     },
   },
 
-  shadowCont: {
-    height: "100vh",
-    background: "rgba(0, 0, 0, 0.5)",
-    // border: "3px solid green",
+  shadowContOpened: {
+    height: "100%",
+    background: "rgba(0, 0, 0, 0.6)",
     width: "100%",
-    // position: "relative",
-    zIndex: 999999,
+    zIndex: 99999,
     position: "fixed",
-    bottom: "-300px",
+    bottom: 0,
     left: 0,
-    // zIndex: 99,
+    transition: "1s ease all",
+    opacity: 1,
   },
 
-  pincodeCont: {
+  shadowContClosed: {
+    height: "0",
+    background: "rgba(0, 0, 0, 0.6)",
+    width: "100%",
+    zIndex: 99999,
+    position: "fixed",
+    bottom: 0,
+    left: 0,
+    transition: "1s ease all",
+    opacity: 0,
+  },
+
+  pincodeContOpened: {
     boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
     width: "100%",
-    // height: "400px",
-    // opacity: 0,
+    height: "350px",
+    opacity: 1,
     background: "#fff",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    // height: "0px",
-    // transition: "1.5s",
+    transition: "1s ease all",
     position: "fixed",
-    bottom: "-300px",
+    bottom: 0,
     left: 0,
-    zIndex: 9999999,
-    gap: 2,
+    zIndex: 99999,
+    gap: 4,
+    py: 7,
+    px: 1,
+    "& > img": {
+      position: "absolute",
+      right: "20px",
+      top: "20px",
+      width: "28px",
+      height: "28px",
+      cursor: "pointer",
+    },
+    "& p:nth-of-type(1)": {
+      fontFamily: "Montserrat Alternates",
+      fontWeight: 600,
+      fontSize: "20px",
+      textAlign: "center",
+      color: "#18161B",
+    },
+    "& p:nth-of-type(2)": {
+      fontFamily: "Montserrat Alternates",
+      fontWeight: 600,
+      fontSize: "14px",
+      textAlign: "center",
+      color: "#BAB9BB",
+    },
+    "& p": {
+      "&:not(:nth-of-type(1)):not(:nth-of-type(1) + p)": {
+        fontFamily: "Montserrat Alternates",
+        fontWeight: 600,
+        fontSize: "14px",
+        textAlign: "center",
+        color: "#BAB9BB",
+        // border: "2px solid red",
+        mt: "-16px",
+      },
+    },
+  },
+
+  pincodeContClosed: {
+    boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+    width: "100%",
+    height: "0px",
+    opacity: 1,
+    background: "#fff",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    transition: "1s ease all",
+    position: "fixed",
+    bottom: 0,
+    left: 0,
+    zIndex: 99999,
+    gap: 4,
     py: 7,
     px: 1,
     "& > img": {
@@ -479,11 +542,13 @@ const homePageStyles = {
         bottom: "-300px",
         opacity: 0.5,
         display: "none",
+        zIndex: 0,
       },
       to: {
         bottom: "0px",
         opacity: 1,
         display: "flex",
+        zIndex: 99999,
       },
     },
   },
@@ -495,6 +560,7 @@ const homePageStyles = {
         bottom: "0px",
         opacity: 1,
         // display: "none",
+        zIndex: 99999,
       },
       to: {
         bottom: "-300px",
@@ -513,6 +579,7 @@ const homePageStyles = {
     width: { xs: "100%", sm: "80%", md: "50%", lg: "45%", xl: "30%" },
     background: "#fff",
     boxShadow: `rgba(100, 100, 111, 0.2) 0px 7px 29px 0px`,
+    mt: 3,
     pl: "18px",
     pr: "5px",
     "& svg": {
@@ -564,16 +631,68 @@ const homePageStyles = {
     },
   },
 
-  iconsImgsCont: {
+  backgroundContOpen: {
+    height: "100vh",
     position: "fixed",
+    right: 0,
+    top: 0,
+    width: "100vw",
+    zIndex: 999999,
+    transition: "0.3s ease",
+    background: "rgba(0, 0, 0, 0.7)",
+    // border: "1px solid red"
+  },
+
+  backgroundContClose: {
+    height: "100vh",
+    position: "fixed",
+    right: 0,
+    top: 0,
+    width: 0,
+    zIndex: 999999,
+    transition: "0.3s ease",
+    background: "rgba(0, 0, 0, 0.7)",
+    // border: "1px solid red"
+  },
+
+  iconsImgsContOpened: {
+    position: "absolute",
     width: "55px",
+    maxWidth: "55px",
     height: "205px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
+    bottom: "85px",
+    // transition: "1s ease",
+    opacity: 1,
+    right: { xs: "15px", sm: "15px", md: "18px" },
+    left: "calc(100% - 90px)",
+    zIndex: 99999,
+    // border: "1px solid red",
+    "& > img": {
+      width: "50px",
+      height: "50px",
+      objectFit: "cover",
+      cursor: "pointer",
+    },
+  },
+
+  iconsImgsContClose: {
+    position: "absolute",
+    width: "0px",
+    height: "205px",
+    // maxWidth: "55px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
     bottom: "74px",
-    right: { xs: "18px", sm: "30px", md: "35px" },
-    zIndex: 99,
+    // transition: "1s ease",
+    // border: "1px solid red",
+    // right: { xs: "18px", sm: "30px", md: "35px" },
+    // left: "calc(100% - 66px)",
+    opacity: 0,
+    zIndex: 99999,
     "& > img": {
       width: "50px",
       height: "50px",
@@ -585,6 +704,14 @@ const homePageStyles = {
   opaqueCont: {
     background: "rgba(0, 0, 0, 0.3)",
   },
+
+  pincodeErrMsg: {
+    font: "500 12px Poppins",
+    color: "red",
+    // alignSelf: "flex-start"
+    mt: 0.4,
+    width: { xs: "100%", sm: "80%", md: "50%", lg: "45%", xl: "30%" },
+  }
 };
 
 export default homePageStyles;

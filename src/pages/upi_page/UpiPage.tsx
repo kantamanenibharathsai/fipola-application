@@ -6,6 +6,7 @@
 import { Box, Button, TextField } from "@mui/material";
 import { Component } from "react";
 import TopNavbarArrow from "../../components/top_navbar_arrow_icon/TopNavbarArrow";
+import withRouter from "../../hoc/withRouter";
 import upiPageStyles from "./UpiPage.Styles";
 
 
@@ -13,16 +14,22 @@ import upiPageStyles from "./UpiPage.Styles";
 
 
 
+interface MyProps {
+    navigate: (path: string) => void;
+}
 
 
-class UPIPage extends Component {
+class UPIPage extends Component<MyProps, {}> {
 
+    navigateHandler = (path: string) => {
+        this.props.navigate(path);
+    }
 
     render() {
         return (
             <Box sx={upiPageStyles.mainCont}>
                 <Box sx={upiPageStyles.yellowCont}>
-                    <TopNavbarArrow>UPI</TopNavbarArrow>
+                    <TopNavbarArrow childrenContent="UPI" navigateHandler={this.navigateHandler} pathName="/paymentMethod" />
                 </Box>
                 <Box sx={upiPageStyles.bottomCont}>
                     <Box component={"form"} sx={upiPageStyles.formCont}>
@@ -43,7 +50,7 @@ class UPIPage extends Component {
                             // helperText={props.touched.fname && props.errors.fname}
                             />
                         </Box>
-                        <Button sx={upiPageStyles.redBtn}>Pay now</Button>
+                        <Button onClick={() => this.props.navigate("/orderSuccess")} sx={upiPageStyles.redBtn}>Pay now</Button>
                     </Box>
                 </Box>
             </Box>
@@ -52,4 +59,4 @@ class UPIPage extends Component {
 }
 
 
-export default UPIPage
+export default withRouter(UPIPage)

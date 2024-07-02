@@ -4,8 +4,11 @@ import calendarImg from "../../assets/single_history/calendarImg.png";
 import watchLaterImg from "../../assets/single_history/watchLater.png";
 import TopNavbarArrow from "../../components/top_navbar_arrow_icon/TopNavbarArrow";
 import singleHistoryStyles from "./SingleHistory.Styles";
+import withRouter from "../../hoc/withRouter";
 
-
+interface SingleHistoryCardProps {
+    navigate: (path: string) => void;
+}
 class SingleHistoryOrderedProduct extends Component {
     render() {
         return (
@@ -28,17 +31,21 @@ class SingleHistoryOrderedProduct extends Component {
 }
 
 
+interface MyProps {
+    navigate: (path: string) => void;
+}
 
+class SingleHistory extends Component<MyProps, {}> {
 
-class SingleHistory extends Component {
-
-
+    singleHistoryCardHandler = (path: string) => {
+        this.props.navigate(path)
+    }
 
     render() {
 
         return (
             <Box sx={singleHistoryStyles.mainCont}>
-                <TopNavbarArrow>Order</TopNavbarArrow>
+                <TopNavbarArrow childrenContent={"Order"} pathName={"/orderHistory"} navigateHandler={this.singleHistoryCardHandler}/>
                 <Box sx={singleHistoryStyles.emptyBox}></Box>
                 <Box sx={singleHistoryStyles.bodyCont}>
                     <Box sx={singleHistoryStyles.bodyTopCont}>
@@ -72,7 +79,7 @@ class SingleHistory extends Component {
                         <Box sx={singleHistoryStyles.centerChildCont}>
                             <Typography component={"h2"}>Ordered Product</Typography>
                             <Box sx={singleHistoryStyles.orderedProductsCont}>
-                                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(each => <SingleHistoryOrderedProduct key={each} />)}
+                                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(each => <SingleHistoryOrderedProduct key={each}/>)}
                             </Box>
                         </Box>
                     </Box>
@@ -101,4 +108,4 @@ class SingleHistory extends Component {
     }
 }
 
-export default SingleHistory
+export default withRouter(SingleHistory)

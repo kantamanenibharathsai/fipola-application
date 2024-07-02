@@ -14,30 +14,23 @@ import termsAndConditLogo from "../../assets/navbar/termsAndCondit.png";
 import fipolaLogo from "../../assets/splash_screen/fipolaLogo.png";
 import topNavbarStyles from "./TopNavbar.Styles";
 
-
 interface NavbarState {
     isDrawerDisplayed: boolean;
+
 }
 
 interface NavbarProps {
     isSpeedDialOpened?: boolean;
+    navigateHandler?: (path: string) => void;
 }
 
 class TopNavbar extends Component<NavbarProps, NavbarState> {
     private drawerRef: RefObject<HTMLDivElement>;
 
-    constructor(props: {}) {
+    constructor(props: NavbarProps) {
         super(props);
         this.state = { isDrawerDisplayed: false };
         this.drawerRef = React.createRef();
-    }
-
-    componentDidMount() {
-        document.addEventListener("click", this.handleClickOutside);
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener("click", this.handleClickOutside);
     }
 
     handleClickOutside = (event: MouseEvent) => {
@@ -46,25 +39,81 @@ class TopNavbar extends Component<NavbarProps, NavbarState> {
         }
     };
 
+    handleScroll = () => {
+        if (this.state.isDrawerDisplayed) {
+            this.setState({ isDrawerDisplayed: false });
+        }
+    };
+
+    componentDidMount() {
+        document.addEventListener("click", this.handleClickOutside);
+        window.addEventListener("scroll", this.handleScroll);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener("click", this.handleClickOutside);
+        window.removeEventListener("scroll", this.handleScroll);
+    }
+
     handleMobileDrawerHamburg = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         event.stopPropagation();
         this.props.isSpeedDialOpened === false && this.setState({ isDrawerDisplayed: true });
     };
 
+    handleListClick = (event: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
+        const target = event.target as HTMLElement;
+        const listItem = target.closest("li");
+        if (!listItem) return;
+        const textContent = listItem.textContent?.trim();
+        switch (textContent) {
+            case "Home":
+                console.log("Home clicked");
+                this.props.navigateHandler!("/");
+                this.setState({ isDrawerDisplayed: false });
+                break;
+            case "About Us":
+                console.log("About Us clicked");
+                break;
+            case "FAQ's":
+                console.log("FAQ's clicked");
+                break;
+            case "Contact":
+                console.log("Contact clicked");
+                break;
+            case "Fipola On Wheels":
+                console.log("Fipola On Wheels clicked");
+                break;
+            case "Order History":
+                console.log("Order History clicked");
+                this.props.navigateHandler!("/orderHistory");
+                this.setState({ isDrawerDisplayed: false });
+                break;
+            case "Terms & Conditions":
+                console.log("Terms & Conditions clicked");
+                break;
+            case "Certificates":
+                console.log("Certificates clicked");
+                break;
+            case "Franchise":
+                console.log("Franchise clicked");
+                break;
+            default:
+                break;
+        }
+    };
+
     renderMobileDrawer = () => (
-        <Box sx={{ ...topNavbarStyles.blackWhiteBackgroundCont, width: this.state.isDrawerDisplayed ? "100%" : "0px", background: this.state.isDrawerDisplayed ? "rgba(0, 0, 0, 0.4)" : "#fff" }}>
+        <Box sx={{ width: this.state.isDrawerDisplayed ? topNavbarStyles.backgroundContainerOpened : topNavbarStyles.backgroundContainerClosed }}>
             <Box
                 ref={this.drawerRef}
                 sx={{
-                    ...topNavbarStyles.sidebarCont,
-                    width: this.state.isDrawerDisplayed ? "250px" : "0px",
-                    overflow: this.state.isDrawerDisplayed ? "visible" : "hidden",
+                    width: this.state.isDrawerDisplayed ? topNavbarStyles.leftSideDrawerOpened : topNavbarStyles.leftSideDrawerClosed,
                 }}
             >
                 <Box sx={topNavbarStyles.logoCont}>
                     <Box component={"img"} src={fipolaLogo} alt="fipola-logo" sx={topNavbarStyles.fipolaLogo} />
                 </Box>
-                <Stack component="ul" direction={"column"} sx={topNavbarStyles.ulStackCont}>
+                <Stack component="ul" direction={"column"} sx={topNavbarStyles.ulStackCont} onClick={this.handleListClick}>
                     <Stack component="li" direction={"row"} alignItems={"center"} sx={topNavbarStyles.logoTextStack}>
                         <Box component="img" alt="home-logo" sx={topNavbarStyles.logo} src={homeLogo} />
                         <Box component={"span"} sx={{ ...topNavbarStyles.logoText, opacity: this.state.isDrawerDisplayed ? 1 : 0 }}>Home</Box>
@@ -97,7 +146,7 @@ class TopNavbar extends Component<NavbarProps, NavbarState> {
 
                     <Stack component="li" direction={"row"} alignItems={"center"} sx={topNavbarStyles.logoTextStack}>
                         <Box component="img" alt="home-logo" sx={topNavbarStyles.logo} src={termsAndConditLogo} />
-                        <Box component={"span"} sx={{ ...topNavbarStyles.logoText, opacity: this.state.isDrawerDisplayed ? 1 : 0 }}>Term & Conditions</Box>
+                        <Box component={"span"} sx={{ ...topNavbarStyles.logoText, opacity: this.state.isDrawerDisplayed ? 1 : 0 }}>Terms & Conditions</Box>
                     </Stack>
 
                     <Stack component="li" direction={"row"} alignItems={"center"} sx={topNavbarStyles.logoTextStack}>
@@ -117,6 +166,7 @@ class TopNavbar extends Component<NavbarProps, NavbarState> {
                         disableRipple
                         disableTouchRipple
                         sx={topNavbarStyles.signOutBtn}
+                        onClick={() => this.props.navigateHandler!("/loginboarding")}
                     >
                         Sign out
                     </Button>
@@ -125,11 +175,10 @@ class TopNavbar extends Component<NavbarProps, NavbarState> {
         </Box>
     );
 
-
     render() {
         return (
             <>
-                <Box sx={{ ...topNavbarStyles.navContainer, background: this.props.isSpeedDialOpened ? "rgba(0, 0, 0, 0.3)" : "#f5bf45" }}>
+                <Box sx={{ ...topNavbarStyles.navContainer, zIndex: this.props.isSpeedDialOpened ? 0 : 1 }}>
                     <Box sx={topNavbarStyles.navChildCont}>
                         <Box
                             onClick={this.handleMobileDrawerHamburg}
@@ -144,48 +193,48 @@ class TopNavbar extends Component<NavbarProps, NavbarState> {
 
                     <Box sx={topNavbarStyles.navChildContDesk}>
                         <Box component={"img"} src={fipolaLogo} alt="fipola-logo" sx={topNavbarStyles.fipolaLogo} />
-                        <Stack direction={"row"} alignItems={"center"} gap={{ lg: 2.5, xl: 3 }}>
-                            <Stack direction={"row"} alignItems={"center"} gap={"6px"} sx={topNavbarStyles.logoTextStack}>
+                        <Stack onClick={this.handleListClick} direction={"row"} alignItems={"center"} gap={{ lg: 2.5, xl: 3 }} component="ul">
+                            <Stack component="li" direction={"row"} alignItems={"center"} gap={"6px"} sx={topNavbarStyles.logoTextStack}>
                                 <Box component="img" alt="home-logo" sx={topNavbarStyles.logo} src={homeLogo} />
                                 <Box component={"span"} sx={{ ...topNavbarStyles.logoText, opacity: this.state.isDrawerDisplayed ? 1 : 0 }}>Home</Box>
                             </Stack>
 
-                            <Stack direction={"row"} alignItems={"center"} gap={"6px"} sx={topNavbarStyles.logoTextStack}>
+                            <Stack component="li" direction={"row"} alignItems={"center"} gap={"6px"} sx={topNavbarStyles.logoTextStack}>
                                 <Box component="img" alt="about-logo" sx={topNavbarStyles.logo} src={aboutLogo} />
                                 <Box component={"span"} sx={topNavbarStyles.logoText}>about</Box>
                             </Stack>
 
-                            <Stack direction={"row"} alignItems={"center"} gap={"6px"} sx={topNavbarStyles.logoTextStack}>
+                            <Stack component="li" direction={"row"} alignItems={"center"} gap={"6px"} sx={topNavbarStyles.logoTextStack}>
                                 <Box component="img" alt="faq-logo" sx={topNavbarStyles.logo} src={faqLogo} />
                                 <Box component={"span"} sx={topNavbarStyles.logoText}>FAQ's</Box>
                             </Stack>
 
-                            <Stack direction={"row"} alignItems={"center"} gap={"6px"} sx={topNavbarStyles.logoTextStack}>
+                            <Stack component="li" direction={"row"} alignItems={"center"} gap={"6px"} sx={topNavbarStyles.logoTextStack}>
                                 <Box component="img" alt="contact-logo" sx={topNavbarStyles.logo} src={contactLogo} />
                                 <Box component={"span"} sx={topNavbarStyles.logoText}>Contact</Box>
                             </Stack>
 
-                            <Stack direction={"row"} alignItems={"center"} gap={"6px"} sx={topNavbarStyles.logoTextStack}>
+                            <Stack component="li" direction={"row"} alignItems={"center"} gap={"6px"} sx={topNavbarStyles.logoTextStack}>
                                 <Box component="img" alt="fipola-on-wheels-logo" sx={topNavbarStyles.logo} src={fipolaOnWheelsLogo} />
                                 <Box component={"span"} sx={topNavbarStyles.logoText}>fipolaOnWheels</Box>
                             </Stack>
 
-                            <Stack direction={"row"} alignItems={"center"} gap={"6px"} sx={topNavbarStyles.logoTextStack}>
+                            <Stack component="li" direction={"row"} alignItems={"center"} gap={"6px"} sx={topNavbarStyles.logoTextStack}>
                                 <Box component="img" alt="order-history-logo" sx={topNavbarStyles.logo} src={orderHistLogo} />
                                 <Box component={"span"} sx={topNavbarStyles.logoText}>Order History</Box>
                             </Stack>
 
-                            <Stack direction={"row"} alignItems={"center"} gap={"6px"} sx={topNavbarStyles.logoTextStack}>
+                            <Stack component="li" direction={"row"} alignItems={"center"} gap={"6px"} sx={topNavbarStyles.logoTextStack}>
                                 <Box component="img" alt="home-logo" sx={topNavbarStyles.logo} src={termsAndConditLogo} />
                                 <Box component={"span"} sx={topNavbarStyles.logoText}>Terms & Conditions</Box>
                             </Stack>
 
-                            <Stack direction={"row"} alignItems={"center"} gap={"6px"} sx={topNavbarStyles.logoTextStack}>
+                            <Stack component="li" direction={"row"} alignItems={"center"} gap={"6px"} sx={topNavbarStyles.logoTextStack}>
                                 <Box component="img" alt="certificates-logo" sx={topNavbarStyles.logo} src={certificatesLogo} />
                                 <Box component={"span"} sx={topNavbarStyles.logoText}>Certificates</Box>
                             </Stack>
 
-                            <Stack direction={"row"} alignItems={"center"} gap={"6px"} sx={topNavbarStyles.logoTextStack}>
+                            <Stack component="li" direction={"row"} alignItems={"center"} gap={"6px"} sx={topNavbarStyles.logoTextStack}>
                                 <Box component="img" alt="certificates-logo" sx={topNavbarStyles.logo} src={franchiseLogo} />
                                 <Box component={"span"} sx={topNavbarStyles.logoText}>Franchise</Box>
                             </Stack>
@@ -193,11 +242,10 @@ class TopNavbar extends Component<NavbarProps, NavbarState> {
                         </Stack>
                     </Box>
                 </Box>
-                {this.state.isDrawerDisplayed && this.renderMobileDrawer()}
+                {this.renderMobileDrawer()}
             </>
         )
     }
 }
 
-
-export default TopNavbar
+export default TopNavbar;

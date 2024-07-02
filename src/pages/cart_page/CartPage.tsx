@@ -2,10 +2,18 @@ import { Box, Button, Typography } from "@mui/material";
 import { Component } from "react";
 import BottomNavbar from "../../components/bottom_navbar/BottomNavbar";
 import CartProductCard from "../../components/cart_product_card/CartProductCard";
+import withRouter from "../../hoc/withRouter";
 import cartStyles from "./CartPage.Styles";
 
+interface MyProps {
+    navigate: (path: string) => void;
+}
+class CartPage extends Component<MyProps, {}> {
 
-class CartPage extends Component {
+    listItemsClickHandler = (path: string) => {
+        this.props.navigate(path)
+    }
+
     render() {
         return (
             <Box sx={cartStyles.mainCont}>
@@ -33,14 +41,14 @@ class CartPage extends Component {
                             <Typography>Subtotal</Typography>
                             <Typography>₹389.00</Typography>
                         </Box>
-                        <Button sx={cartStyles.redBtn}>check out</Button>
+                        <Button onClick={() => this.listItemsClickHandler("/selectAddress")} sx={cartStyles.redBtn}>check out</Button>
                     </Box>
                 </Box>
-                <BottomNavbar />
+                <BottomNavbar navigateHandler={this.listItemsClickHandler} />
             </Box>
         )
     }
 }
 
 
-export default CartPage
+export default withRouter(CartPage)

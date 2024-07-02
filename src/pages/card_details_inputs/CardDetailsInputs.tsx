@@ -1,6 +1,7 @@
 import { Box, Button, TextField } from "@mui/material";
 import { Component } from "react";
 import TopNavbarArrow from "../../components/top_navbar_arrow_icon/TopNavbarArrow";
+import withRouter from "../../hoc/withRouter";
 import cardDetailsInputsStyles from "./CardDetailsInputs.Styles";
 
 
@@ -8,16 +9,22 @@ import cardDetailsInputsStyles from "./CardDetailsInputs.Styles";
 
 
 
+interface MyProps {
+    navigate: (path: string) => void;
+}
+
+class CardDetailsInputs extends Component<MyProps, {}> {
 
 
-class CardDetailsInputs extends Component {
-
+    navigateHandler = (path: string) => {
+        this.props.navigate(path);
+    }
 
     render() {
         return (
             <Box sx={cardDetailsInputsStyles.mainCont}>
                 <Box sx={cardDetailsInputsStyles.yellowCont}>
-                    <TopNavbarArrow>Card</TopNavbarArrow>
+                    <TopNavbarArrow childrenContent="Card" navigateHandler={this.navigateHandler} pathName="/paymentMethod" />
                 </Box>
                 <Box sx={cardDetailsInputsStyles.bottomCont}>
                     <Box component={"form"} sx={cardDetailsInputsStyles.formCont}>
@@ -92,7 +99,7 @@ class CardDetailsInputs extends Component {
                             // helperText={props.touched.email && props.errors.email}
                             />
                         </Box>
-                        <Button sx={cardDetailsInputsStyles.redBtn}>Pay now</Button>
+                        <Button onClick={() => this.props.navigate("/orderSuccess")} sx={cardDetailsInputsStyles.redBtn}>Pay now</Button>
                     </Box>
                 </Box>
             </Box>
@@ -101,4 +108,4 @@ class CardDetailsInputs extends Component {
 }
 
 
-export default CardDetailsInputs
+export default withRouter(CardDetailsInputs)

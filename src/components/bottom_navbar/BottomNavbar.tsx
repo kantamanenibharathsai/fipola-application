@@ -7,21 +7,23 @@ import bottomNavbarStyles from "./BottomNavbar.Styles";
 
 interface NavbarProps {
     isSpeedDialOpened?: boolean;
+    navigateHandler?: (path: string) => void;
 }
 class BottomNavbar extends Component<NavbarProps, {}> {
 
     render() {
         return (
-            <Box sx={{ ...bottomNavbarStyles.bottomNavContainer, background: this.props.isSpeedDialOpened ? "rgba(0, 0, 0, 0.3)" : "#f5bf45" }}>
+            <Box sx={{ ...bottomNavbarStyles.bottomNavContainer, zIndex: this.props.isSpeedDialOpened ? -1 : 1 }}>
                 <Box sx={{ ...bottomNavbarStyles.navChildCont, display: "flex" }}>
                     <Box
                         component={"img"}
                         src={homeImg}
                         alt="home-img"
+                        onClick={() => this.props.navigateHandler!("/")}
                     />
-                    <Box component={"img"} src={categoryImg}
+                    <Box component={"img"} src={categoryImg} onClick={() => this.props.navigateHandler!("/category")}
                         alt="category-img" />
-                    <Box component={"img"} src={cartImg}
+                    <Box component={"img"} src={cartImg} onClick={() => this.props.navigateHandler!("/cart")}
                         alt="cart-img" />
                 </Box>
             </Box>

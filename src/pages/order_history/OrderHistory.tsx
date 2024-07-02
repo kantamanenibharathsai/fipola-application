@@ -2,14 +2,18 @@ import { Box, Stack, Typography } from "@mui/material";
 import { Component } from "react";
 import watchLaterImg from "../../assets/single_history/watchLater.png";
 import TopNavbarArrow from "../../components/top_navbar_arrow_icon/TopNavbarArrow";
+import withRouter from "../../hoc/withRouter";
 import orderHistoryStyles from "./OrderHistory.Styles";
 
 
+interface OrderHistoryCardProps {
+    navigate: (path: string) => void;
+}
 
-class OrderHistoryCard extends Component {
+class OrderHistoryCard extends Component<MyProps, {}> {
     render() {
         return (
-            <Box sx={orderHistoryStyles.cardCont}>
+            <Box sx={orderHistoryStyles.cardCont} onClick={() => this.props.navigate('/singleHistory')}>
                 <Box sx={orderHistoryStyles.contentCont}>
                     <Typography component={"h2"}>Order# ORD00003</Typography>
                     <Typography sx={orderHistoryStyles.price}>₹389.00</Typography>
@@ -40,20 +44,26 @@ class OrderHistoryCard extends Component {
 }
 
 
+interface MyProps {
+    navigate: (path: string) => void;
+}
+class OrderHistory extends Component<MyProps, {}> {
 
+    orderHistoryCardHandler = (path: string) => {
+        this.props.navigate(path)
+    }
 
-class OrderHistory extends Component {
     render() {
         return (
             <Box sx={orderHistoryStyles.mainCont}>
-                <TopNavbarArrow>Order History</TopNavbarArrow>
+                <TopNavbarArrow childrenContent="Order History" navigateHandler={this.orderHistoryCardHandler} />
                 <Box sx={orderHistoryStyles.emptyBox}></Box>
                 <Box sx={orderHistoryStyles.bodyCont}>
                     <Box sx={orderHistoryStyles.bodyFlexCont}>
                         {[1, 2, 3, 4, 5, 6, 7].map(each => (<Box key={each} sx={orderHistoryStyles.bodyDateCardCont}>
                             <Typography component="h2">Sunday , 3 April 2022</Typography>
                             <Stack sx={orderHistoryStyles.stackCont}>
-                                {[1, 2, 3, 4, 5].map(each => <OrderHistoryCard key={each} />)}
+                                {[1, 2, 3, 4, 5].map(each => <OrderHistoryCard key={each} navigate={this.props.navigate} />)}
                             </Stack>
                         </Box>))}
                     </Box>
@@ -63,4 +73,4 @@ class OrderHistory extends Component {
     }
 }
 
-export default OrderHistory
+export default withRouter(OrderHistory);

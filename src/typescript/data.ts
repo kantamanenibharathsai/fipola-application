@@ -21,7 +21,6 @@ export interface CategoryObjInterface {
   categoryName: string;
 }
 
-
 export const categoryData: CategoryObjInterface[] = [
   {
     categoryId: 1,
@@ -94,3 +93,24 @@ export const categoryData: CategoryObjInterface[] = [
     categoryName: "Vegan",
   },
 ];
+
+
+export interface ProductInterface {
+  productId: number;
+  productName: string;
+  productImg: string;
+  productOriginalPrice: number;
+  productPrice: number;
+  productQuantity: number;
+}
+
+export interface CartProductInterface {
+  productId: number;
+  productName: string;
+  productImg: string;
+  productOriginalPrice: number;
+  productPrice: number;
+  productQuantity: number;
+}
+
+// export interface CartProductInterface extends BestSellersCardInterface {}

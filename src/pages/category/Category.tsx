@@ -4,6 +4,7 @@ import searchLogo from "../../assets/home/search.png";
 import Debounce from "../../components/DebounceComponent";
 import BottomNavbar from "../../components/bottom_navbar/BottomNavbar";
 import CategoryCard from "../../components/category_card/CategoryCard";
+import withRouter from "../../hoc/withRouter";
 import { CategoryObjInterface, categoryData } from "../../typescript/data";
 import categoryStyles from "./Category.Styles";
 
@@ -14,13 +15,23 @@ interface MyState {
     isNoCategoriesCardFoundDisplayed: boolean;
 }
 
-class CategoryPage extends Component<{}, MyState> {
+
+interface MyProps {
+    navigate: (path: string) => void;
+}
+
+class CategoryPage extends Component<MyProps, MyState> {
     state: MyState = {
         categoryValue: "",
         isCategoryLoading: false,
         categoryData,
         isNoCategoriesCardFoundDisplayed: false,
     };
+
+
+    listItemsClickHandler = (path: string) => {
+        this.props.navigate(path)
+    }
 
     fetchCategories = async (search: string) => {
         await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -75,6 +86,7 @@ class CategoryPage extends Component<{}, MyState> {
                                 <CategoryCard
                                     eachCategory={eachCategory}
                                     key={eachCategory.categoryId}
+                                    navigateHandler={this.listItemsClickHandler}
                                 />
                             ))}
                         </Box>
@@ -91,10 +103,10 @@ class CategoryPage extends Component<{}, MyState> {
                         </Box>
                     )}
                 </Box>
-                <BottomNavbar />
+                <BottomNavbar navigateHandler={this.listItemsClickHandler} />
             </>
         );
     }
 }
 
-export default CategoryPage;
+export default withRouter(CategoryPage);

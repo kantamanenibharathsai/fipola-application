@@ -111,6 +111,7 @@ const orderHistoryStyles = {
     py: "20px",
     px: "14px",
     justifyContent: "space-between",
+    cursor: "pointer",
   },
 
   contentCont: {

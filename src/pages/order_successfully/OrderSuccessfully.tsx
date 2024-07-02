@@ -2,13 +2,16 @@ import { Box, Typography } from "@mui/material";
 import { Component } from "react";
 import homeIcon from "../../assets/order_successfully/homeIcon.png";
 import tickIcon from "../../assets/order_successfully/tickIcon.png";
+import withRouter from "../../hoc/withRouter";
 import orderSuccessStyles from "./OrderSuccessfully.Styles";
 
 
 
+interface MyProps {
+    navigate: (path: string) => void;
+}
 
-
-class OrderSuccess extends Component {
+class OrderSuccess extends Component<MyProps, {}> {
 
 
     render() {
@@ -18,7 +21,7 @@ class OrderSuccess extends Component {
                     <Box component="img" alt="tick-image" src={tickIcon} />
                     <Typography>Congratulations</Typography>
                     <Typography>Your Order Successfully</Typography>
-                    <Box component="img" alt="tick-image" src={homeIcon} />
+                    <Box component="img" alt="tick-image" src={homeIcon} onClick={() => this.props.navigate("/")} />
                 </Box>
             </Box>
         )
@@ -26,4 +29,4 @@ class OrderSuccess extends Component {
 }
 
 
-export default OrderSuccess
+export default withRouter(OrderSuccess)

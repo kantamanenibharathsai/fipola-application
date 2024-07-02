@@ -36,7 +36,7 @@ const paymentMethodStyles = {
     gap: 1.8,
     width: "100%",
     height: "70%",
-    mt: 1.5
+    mt: 1.5,
     // border: "1px solid grey",
   },
 
@@ -49,6 +49,7 @@ const paymentMethodStyles = {
     display: "flex",
     flexDirection: "column",
     // alignItems: "flex-start",
+    cursor: "pointer",
     gap: 1.5,
     boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
     "& img": {

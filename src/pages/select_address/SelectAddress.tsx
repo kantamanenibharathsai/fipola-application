@@ -2,6 +2,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Box, Button, Typography } from "@mui/material";
 import React, { Component } from "react";
 import TopNavbarArrow from "../../components/top_navbar_arrow_icon/TopNavbarArrow";
+import withRouter from '../../hoc/withRouter';
 import selectAddressStyles from "./SelectAddress.Styles";
 
 interface SelectAddressCardProps {
@@ -78,7 +79,11 @@ interface SelectAddressState {
     isCurrentPopUpOpen: boolean;
 }
 
-class SelectAddress extends Component<{}, SelectAddressState> {
+interface MyProps {
+    navigate: (path: string) => void;
+}
+
+class SelectAddress extends Component<MyProps, SelectAddressState> {
     state: SelectAddressState = {
         openPopupId: null,
         currentRadioBtnId: null,
@@ -98,10 +103,14 @@ class SelectAddress extends Component<{}, SelectAddressState> {
         this.setState({ currentRadioBtnId: btnId })
     }
 
+    listItemsClickHandler = (path: string) => {
+        this.props.navigate(path)
+    }
+
     render() {
         return (
             <Box sx={selectAddressStyles.mainCont}>
-                <TopNavbarArrow>Delivery Address</TopNavbarArrow>
+                <TopNavbarArrow childrenContent='Delivery Address' navigateHandler={this.listItemsClickHandler} pathName='/cart'/>
                 <Box sx={selectAddressStyles.emptyBox}></Box>
                 <Box sx={selectAddressStyles.bodyCont}>
                     <Box sx={selectAddressStyles.bodyChildCont}>
@@ -120,7 +129,7 @@ class SelectAddress extends Component<{}, SelectAddressState> {
                                 />
                             ))}
                         </Box>
-                        <Button sx={selectAddressStyles.redBtn}>continue</Button>
+                        <Button onClick={() => this.props.navigate("/paymentMethod")} sx={selectAddressStyles.redBtn}>continue</Button>
                     </Box>
                 </Box>
             </Box>
@@ -128,4 +137,4 @@ class SelectAddress extends Component<{}, SelectAddressState> {
     }
 }
 
-export default SelectAddress;
+export default withRouter(SelectAddress);

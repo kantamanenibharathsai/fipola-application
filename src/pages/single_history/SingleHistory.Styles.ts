@@ -37,13 +37,14 @@ const singleHistoryStyles = {
     display: "flex",
     flexDirection: "column",
     // border: "1px solid red",
-    gap: 0.4,
+    gap: { xs: 0.4, xl: 0 },
     height: "auto",
     "& > h2": {
       fontFamily: "Montserrat Alternates",
       fontWeight: 600,
       fontSize: "18px",
       color: "#18161B",
+      // border: "1px solid red",
     },
   },
 
@@ -86,12 +87,14 @@ const singleHistoryStyles = {
   },
 
   bodyCenterCont: {
-    height: "50%",
+    height: {xs:"50%", xl:"52%"},
     width: "100%",
     // padding: 2,
     // border: "1px solid red",
     alignContent: "center",
     background: "#fff",
+    pt: { xl: 1.5 },
+    pb: { xl: 1.5 },
   },
 
   orderedProductsCont: {
@@ -100,7 +103,7 @@ const singleHistoryStyles = {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fill, minmax(146px, 1fr))",
     gap: { xs: 2, lg: 2 },
-    mt: { xs: 1.5, xl: 3 },
+    mt: { xs: 1.5, xl: 1 },
     // alignItems: "center",
     justifyItems: "space-between",
     justifyContent: "",

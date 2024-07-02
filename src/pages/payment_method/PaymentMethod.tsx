@@ -1,13 +1,15 @@
 import { Box, Button, Typography } from "@mui/material";
 import React, { Component } from "react";
 import TopNavbarArrow from "../../components/top_navbar_arrow_icon/TopNavbarArrow";
+import withRouter from "../../hoc/withRouter";
 import paymentMethodStyles from "./PaymentMethod.Styles";
 
 interface PaymentMethodCardProps {
     id: number;
     handleCurrentRadioBtnClick: (btnId: number) => void;
     currentRadioBtnId: number | null;
-    eachCardDetailsObj: { id: number, text: string }
+    eachCardDetailsObj: { id: number, text: string };
+    navigateHandler: (path: string) => void;
 }
 
 class PaymentMethodCard extends Component<PaymentMethodCardProps> {
@@ -18,12 +20,17 @@ class PaymentMethodCard extends Component<PaymentMethodCardProps> {
         this.popupRef = React.createRef();
     }
 
+    cardHandler = () => {
+        if (this.props.eachCardDetailsObj.text === "UPI")
+            this.props.navigateHandler("/upiPage");
+    }
+
     render() {
         const { id, currentRadioBtnId, handleCurrentRadioBtnClick, eachCardDetailsObj } = this.props;
 
 
         return (
-            <Box sx={paymentMethodStyles.cardCont}>
+            <Box sx={paymentMethodStyles.cardCont} onClick={this.cardHandler}>
                 <Box sx={paymentMethodStyles.inputRadioTextCont}>
                     <Box onClick={() => handleCurrentRadioBtnClick(id)} sx={paymentMethodStyles.radioOuterCircle}>
                         <Box sx={{ ...paymentMethodStyles.radioInnerCircle, ...(currentRadioBtnId === id && paymentMethodStyles.ActiveRadioInnerCircle) }}>
@@ -44,10 +51,13 @@ class PaymentMethodCard extends Component<PaymentMethodCardProps> {
 
 interface PaymentMethodState {
     currentRadioBtnId: null | number;
-
 }
 
-class PaymentMethod extends Component<{}, PaymentMethodState> {
+interface MyProps {
+    navigate?: (path: string) => void;
+}
+
+class PaymentMethod extends Component<MyProps, PaymentMethodState> {
     state: PaymentMethodState = {
         currentRadioBtnId: null,
     };
@@ -56,10 +66,14 @@ class PaymentMethod extends Component<{}, PaymentMethodState> {
         this.setState({ currentRadioBtnId: btnId })
     }
 
+    navigateHandler = (path: string) => {
+        this.props.navigate!(path);
+    }
+
     render() {
         return (
             <Box sx={paymentMethodStyles.mainCont}>
-                <TopNavbarArrow>Payment Method</TopNavbarArrow>
+                <TopNavbarArrow childrenContent="Payment Method" navigateHandler={this.navigateHandler} pathName="/selectAddress" />
                 <Box sx={paymentMethodStyles.emptyBox}></Box>
                 <Box sx={paymentMethodStyles.bodyCont}>
                     <Box sx={paymentMethodStyles.bodyChildCont}>
@@ -71,10 +85,11 @@ class PaymentMethod extends Component<{}, PaymentMethodState> {
                                     currentRadioBtnId={this.state.currentRadioBtnId}
                                     handleCurrentRadioBtnClick={this.handleCurrentRadioBtnClick}
                                     eachCardDetailsObj={each}
+                                    navigateHandler={this.navigateHandler}
                                 />
                             ))}
                         </Box>
-                        <Button sx={paymentMethodStyles.redBtn}>Continue</Button>
+                        <Button sx={paymentMethodStyles.redBtn} onClick={() => this.props.navigate!("/cardDetails")}>Continue</Button>
                     </Box>
                 </Box>
             </Box>
@@ -82,5 +97,5 @@ class PaymentMethod extends Component<{}, PaymentMethodState> {
     }
 }
 
-export default PaymentMethod;
+export default withRouter(PaymentMethod);
 

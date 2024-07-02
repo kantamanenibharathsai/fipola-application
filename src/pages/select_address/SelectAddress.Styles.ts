@@ -131,6 +131,9 @@ const selectAddressStyles = {
   iconPopupCont: {
     position: "relative",
     // border: "1px solid black",
+    "& svg": {
+      cursor: "pointer",
+    },
   },
 
   popupCont: {

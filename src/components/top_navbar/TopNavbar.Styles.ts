@@ -1,5 +1,3 @@
-import zIndex from "@mui/material/styles/zIndex";
-
 const topNavbarStyles = {
   navContainer: {
     display: "flex",
@@ -46,6 +44,11 @@ const topNavbarStyles = {
     background: "#f5bf45",
     width: { lg: "98%", xl: "90%" },
     // border: "3px solid red",
+    "& ul": {
+      p: 0,
+      m: 0,
+      listStyle: "none",
+    },
   },
 
   logoTextStack: {
@@ -73,33 +76,72 @@ const topNavbarStyles = {
   blackWhiteBackgroundCont: {
     width: 0,
     height: "100%",
-    position: "fixed",
+    position: "absolute",
     left: 0,
     top: 0,
-    zIndex: 999,
+    zIndex: 99999,
     transition: "0.9s",
-    display: { lg: "none" },
+    // display: { lg: "none" },
     // border: "3px solid red",
     overflowX: "hidden",
   },
 
-  sidebarCont: {
-    width: "0px",
-    height: "100%",
-    position: "absolute",
-    left: 0,
-    // top: 0,
-    // bottom: 0,
+  backgroundContainerOpened: {
+    width: "100%",
+    height: "100vh",
+    backgroundColor: "rgba(0,0,0,0.6)",
+    transition: "0.9s ease all",
+    position: "fixed",
+    zIndex: 99999,
     top: 0,
-    // zIndex: 99,
-    display: "flex",
-    flexDirection: "column",
-    // border: "3px solid red",
-    boxShadow: "1px 0 3px -1px #b3b3b3",
-    transition: "0.8s ease all",
+    left: 0,
+    display: { xs: "block", lg: "none" },
+    cursor: "pointer",
+  },
+
+  backgroundContainerClosed: {
+    width: "0",
+    height: "100vh",
+    backgroundColor: "rgba(0,0,0,0.6)",
+    transition: "0.9s ease all",
+    position: "fixed",
+    zIndex: 99999,
+    top: 0,
+    left: 0,
+    display: { xs: "block", lg: "none" },
+    cursor: "pointer",
+  },
+
+  leftSideDrawerClosed: {
+    height: "100%",
+    width: "0px",
+    position: "fixed",
+    zIndex: 99999,
+    top: 0,
+    left: 0,
+    backgroundColor: "#fff",
     overflowX: "hidden",
-    background: "#fff",
-    zIndex: 999
+    transition: "0.9s ease all",
+    display: { xs: "flex", lg: "none" },
+    flexDirection: "column",
+    boxShadow: "1px 0 3px -1px #b3b3b3",
+  },
+
+  leftSideDrawerOpened: {
+    height: "100%",
+    width: "260px",
+    position: "absolute",
+    zIndex: 99999,
+    top: 0,
+    left: 0,
+    backgroundColor: "#fff",
+    overflowX: "hidden",
+    transition: "0.9s ease all",
+    display: { xs: "flex", lg: "none" },
+    flexDirection: "column",
+    // boxShadow:
+    //   "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px",
+    boxShadow: "1px 0 3px -1px #b3b3b3",
   },
 
   logoCont: {
@@ -125,7 +167,7 @@ const topNavbarStyles = {
       transition: "0.8s ease all",
       wightSpace: "nowrap",
     },
-    "& li:nth-last-child(1)": {
+    "& li:nth-last-of-type(1)": {
       borderBottom: "0px",
     },
     "& span": {

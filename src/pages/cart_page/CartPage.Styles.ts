@@ -56,7 +56,7 @@ const cartStyles = {
     "&::-webkit-scrollbar-thumb": {
       backgroundColor: "#C4C4C4",
       borderRadius: "20px",
-    //   border: "3px solid orange",
+      //   border: "3px solid orange",
     },
   },
 
@@ -111,6 +111,7 @@ const cartStyles = {
     color: "#fff",
     alignSelf: "strech",
     textTransform: "capitalize",
+    cursor: "pointer",
     "&: hover": {
       background: "#f62b2a",
     },

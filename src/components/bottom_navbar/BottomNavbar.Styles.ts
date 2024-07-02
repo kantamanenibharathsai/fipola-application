@@ -9,11 +9,12 @@ const bottomNavbarStyles = {
     alignItems: "center",
     justifyContent: "center",
     height: "65px",
-    zIndex: 1,
+    zIndex: 0,
     background: "#f5bf45",
     "& img": {
       width: "26px",
       height: "26px",
+      cursor: "pointer",
     },
   },
 
