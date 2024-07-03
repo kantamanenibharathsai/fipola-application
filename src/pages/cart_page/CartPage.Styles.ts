@@ -1,6 +1,6 @@
 const cartStyles = {
   mainCont: {
-    height: "100vh",
+    // height: "100vh",
     width: "100%",
   },
 
@@ -26,7 +26,7 @@ const cartStyles = {
   bodyCont: {
     width: "100%",
     mt: "82px",
-    height: "calc(100vh - 82px - 65px)",
+    height: "calc(100vh - 82px)",
     display: "flex",
     alignItems: "center",
     gap: { xs: 2, md: 8, lg: 12, xl: 16 },
@@ -36,6 +36,31 @@ const cartStyles = {
     position: "fixed",
     flexDirection: { xs: "column", md: "row" },
     justifyContent: { md: "center" },
+  },
+
+  notFoundBodyCont: {
+    width: "100%",
+    mt: "82px",
+    height: "calc(100vh - 82px)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    border: "2px solid red",
+    // position: "fixed"
+  },
+
+  cartEmptyContainer: {
+    // flexGrow: 1,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 5,
+  },
+
+  cartEmptyImage: {
+    width: { xs: "280px", sm: "320px", md: "450px", lg: "500px" },
+    height: { xs: "280px", sm: "320px", md: "450px", lg: "500px" },
   },
 
   cartProductsCont: {

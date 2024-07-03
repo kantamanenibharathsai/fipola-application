@@ -5,10 +5,6 @@ import withRouter from "../../hoc/withRouter";
 import cardDetailsInputsStyles from "./CardDetailsInputs.Styles";
 
 
-
-
-
-
 interface MyProps {
     navigate: (path: string) => void;
 }

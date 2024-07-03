@@ -33,7 +33,7 @@ class BestSellersCard extends Component<MyProps, {}> {
         event.stopPropagation();
         console.log(this.props.eachProduct?.productId)
         if (this.props.eachProduct && isCartProduct(this.props.eachProduct)) {
-            console.log("vhjgj", this.props.eachProduct?.productId)
+            console.log("vhjgj", this.props.eachProduct?.productId);
             this.props.addToCart!(this.props.eachProduct);
         }
     }
@@ -45,12 +45,8 @@ class BestSellersCard extends Component<MyProps, {}> {
 
     decrementQuantityHandler = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
         event.stopPropagation();
-        this.props.cartDecrement!(this.props.eachProduct!.productId);
-    }
-
-    removeProductFromCartHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        event.stopPropagation();
-        this.props.removeCartItem!(this.props.eachProduct!.productId);
+        if (this.props.cartProducts!.find(eachProd => eachProd?.productId === this.props.eachProduct?.productId)?.productQuantity === 1) this.props.removeCartItem!(this.props.eachProduct!.productId);
+        else this.props.cartDecrement!(this.props.eachProduct!.productId);
     }
 
     render() {
