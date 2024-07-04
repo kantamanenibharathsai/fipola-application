@@ -5,7 +5,7 @@ const bottomNavbarStyles = {
     bottom: 0,
     left: 0,
     right: 0,
-    display: { xs: "flex", lg: "none" },
+    display: { xs: "flex" },
     alignItems: "center",
     justifyContent: "center",
     height: "65px",

@@ -38,32 +38,36 @@ class CartPage extends Component<MyProps, {}> {
                     <Typography component="h2">Cart</Typography>
                 </Box>
 
-                {this.props.cartProducts!.length > 0 && (<Box sx={cartStyles.bodyCont}>
-                    <Box sx={cartStyles.cartProductsCont}>
-                        {this.props.cartProducts?.map(eachProduct => (
-                            <CartProductCard key={eachProduct.productId} {...{ ...eachProduct }} />
-                        ))}
-                    </Box>
+                {this.props.cartProducts!.length > 0 && (
+                    <>
+                        <ResponsiveSidebarLarge navigateHandler={this.listItemsClickHandler} />
+                        <Box sx={cartStyles.bodyCont}>
+                            <Box sx={cartStyles.cartProductsCont}>
+                                {this.props.cartProducts?.map(eachProduct => (
+                                    <CartProductCard key={eachProduct.productId} {...{eachProduct }} />
+                                ))}
+                            </Box>
 
-                    <Box sx={cartStyles.bottomTotalPriceCont}>
-                        <Box>
-                            <Typography>Subtotal</Typography>
-                            <Typography>{totalPrice}</Typography>
+                            <Box sx={cartStyles.bottomTotalPriceCont}>
+                                <Box>
+                                    <Typography>Subtotal</Typography>
+                                    <Typography>{totalPrice}</Typography>
+                                </Box>
+                                <Box>
+                                    <Typography>Delivery Charge</Typography>
+                                    <Typography>₹0</Typography>
+                                </Box>
+                                <Box>
+                                    <Typography>Subtotal</Typography>
+                                    <Typography>{totalPrice}</Typography>
+                                </Box>
+                                <Button onClick={() => this.listItemsClickHandler("/selectAddress")} sx={cartStyles.redBtn}>check out</Button>
+                            </Box>
                         </Box>
-                        <Box>
-                            <Typography>Delivery Charge</Typography>
-                            <Typography>₹0</Typography>
-                        </Box>
-                        <Box>
-                            <Typography>Subtotal</Typography>
-                            <Typography>{totalPrice}</Typography>
-                        </Box>
-                        <Button onClick={() => this.listItemsClickHandler("/selectAddress")} sx={cartStyles.redBtn}>check out</Button>
-                    </Box>
-                </Box>)}
+                    </>)}
                 {this.props.cartProducts!.length === 0 && (
                     <>
-                        <ResponsiveSidebarLarge />
+                        <ResponsiveSidebarLarge navigateHandler={this.listItemsClickHandler} />
                         <Box sx={cartStyles.notFoundBodyCont}>
                             <Box sx={cartStyles.cartEmptyContainer}>
                                 <Box component={"img"} src={cartEmptyImg} alt="cart-empty-img" sx={cartStyles.cartEmptyImage} />

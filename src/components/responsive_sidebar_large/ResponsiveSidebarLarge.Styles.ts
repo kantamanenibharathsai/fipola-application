@@ -2,11 +2,12 @@ const respSidebarLargeStyles = {
   sidebarCont: {
     width: "85px",
     position: "fixed",
+    zIndex: 1,
     left: 0,
     background: "#161a2d",
     top: "82px",
     bottom: 0,
-    overflowX: "hidden",
+    // overflowX: "hidden",
     padding: "0 20px",
     transition: "all 1s ease",
     "& > div:nth-of-type(1) > svg:nth-of-type(1)": {
@@ -39,7 +40,7 @@ const respSidebarLargeStyles = {
     cursor: "pointer",
     position: "absolute",
     top: "60px",
-    right: "-7px",
+    right: "-10px",
     zIndex: 999,
   },
 
@@ -80,11 +81,19 @@ const respSidebarLargeStyles = {
     transition: "0.8s ease",
     "& > img": {
       color: "#fff",
+      cursor: "pointer",
     },
     "&:hover": {
       color: "#161a2d",
-      background: "#fff",
+      background: "#f5bf45",
       borderRadius: "4px",
+      cursor: "pointer",
+    },
+    "&:hover img": {
+      color: "#000",
+    },
+    "&:nth-of-type(3)": {
+      height: "55px",
     },
   },
 

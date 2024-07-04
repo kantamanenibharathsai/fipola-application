@@ -17,7 +17,7 @@ class BottomNavbar extends Component<NavbarProps, {}> {
 
     render() {
         return (
-            <Box sx={{ ...bottomNavbarStyles.bottomNavContainer, zIndex: this.props.isSpeedDialOpened ? -1 : 1 }}>
+            <Box sx={{ ...bottomNavbarStyles.bottomNavContainer, zIndex: this.props.isSpeedDialOpened ? -1 : 1, display: window.location.pathname === "/cart" ? { xs: "flex", lg: "none" } : "flex" }}>
                 <Box sx={{ ...bottomNavbarStyles.navChildCont, display: "flex" }}>
                     <Box
                         component={"img"}

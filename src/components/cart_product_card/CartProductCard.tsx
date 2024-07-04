@@ -85,7 +85,7 @@ class CartProductCard extends Component<MyProps, {}> {
                                 <RemoveIcon id="icon" onClick={this.decrementQuantityHandler} />
                                 <Divider orientation="vertical" flexItem />
                                 <Typography sx={cartProductCardStyles.quantity}>
-                                    {cartProduct?.productQuantity.toString()}
+                                    {eachProduct?.productQuantity}
                                 </Typography>
                                 <Divider orientation="vertical" flexItem />
                                 <AddIcon id="icon" onClick={this.incrementQuantityHandler} />

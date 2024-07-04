@@ -8,7 +8,7 @@ import { AppDispatch, RootState } from "../../redux/Store";
 import { addToCart, cartDecrement, cartIncrement, removeCartItem } from '../../redux/reducers/CartSliceReducer';
 import { CartProductInterface, ProductInterface } from '../../typescript/data';
 import bestSellersCardStyles from "./BestSellersCard.Styles";
-
+import chickenImgUrl from "../../assets/best_sellers_card_images/chicken.png";
 interface MyProps {
     navigate?: (path: string) => void;
     addToCart?: (params: ProductInterface) => void;
@@ -58,14 +58,14 @@ class BestSellersCard extends Component<MyProps, {}> {
             <Box sx={bestSellersCardStyles.cardCont} onClick={this.bestSellerCardHandler}>
                 <Box
                     component={"img"}
-                    src={eachProduct?.productImg}
+                    src={eachProduct?.productImg ? eachProduct?.productImg : chickenImgUrl}
                     sx={bestSellersCardStyles.itemImg}
                 />
-                <Typography sx={bestSellersCardStyles.itemName}>{eachProduct?.productName}</Typography>
+                <Typography sx={bestSellersCardStyles.itemName}>{eachProduct?.productName ? eachProduct?.productName : 'Chicken'}</Typography>
                 <Typography sx={bestSellersCardStyles.price}>
-                    {eachProduct?.productPrice}
+                    {eachProduct?.productPrice ? eachProduct?.productPrice : "200"}
                     <Box component={"span"} sx={bestSellersCardStyles.originalPrice}>
-                        {eachProduct?.productOriginalPrice}
+                        {eachProduct?.productOriginalPrice ? eachProduct?.productOriginalPrice : "250"}
                     </Box>
                 </Typography>
                 {cartProduct && cartProduct.productQuantity > 0 ? (

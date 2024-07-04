@@ -30,30 +30,32 @@ class ResponsiveSidebarLarge extends Component<NavbarProps, {}> {
         const { isRightArrowClicked } = this.state;
 
         return (
-            <Box sx={{ ...respSidebarLargeStyles.sidebarCont, ...(isRightArrowClicked && respSidebarLargeStyles.sidebarOpenCont) }}>
+            <Box sx={{
+                ...respSidebarLargeStyles.sidebarCont, ...(isRightArrowClicked && respSidebarLargeStyles.sidebarOpenCont),
+                display: window.location.pathname === "/cart" ? { xs: "none", lg: "block" } : "none"
+            }}>
                 <Box sx={respSidebarLargeStyles.arrowIconCont} onClick={this.arrowIconHandler}>
                     <KeyboardArrowRightOutlinedIcon />
                 </Box>
                 <Box component={"ul"} sx={{ ...respSidebarLargeStyles.ulCont, ...(isRightArrowClicked && respSidebarLargeStyles.ulOpenCont) }}>
-                    <Box component={"li"} sx={respSidebarLargeStyles.liCont}>
+                    <Box component={"li"} sx={respSidebarLargeStyles.liCont} onClick={() => this.props.navigateHandler!("/")}>
                         <Box
                             component={"img"}
                             src={homeImg}
                             alt="home-img"
-                        // onClick={() => this.props.navigateHandler!("/")}
                         />
                         Home
                     </Box>
-                    <Box component={"li"} sx={respSidebarLargeStyles.liCont}>
-                        <Box component={"img"} src={categoryImg} onClick={() => this.props.navigateHandler!("/category")}
+                    <Box component={"li"} sx={respSidebarLargeStyles.liCont} onClick={() => this.props.navigateHandler!("/category")}>
+                        <Box component={"img"} src={categoryImg}
                             alt="category-img" />
                         Category
                     </Box>
 
-                    <Box component={"li"} sx={respSidebarLargeStyles.liCont}>
+                    <Box component={"li"} sx={respSidebarLargeStyles.liCont} onClick={() => this.props.navigateHandler!("/cart")}>
                         <Box sx={respSidebarLargeStyles.cartCont}>
                             <Box>{this.props.cartProducts?.length}</Box>
-                            <ShoppingCartOutlinedIcon onClick={() => this.props.navigateHandler!("/cart")} />
+                            <ShoppingCartOutlinedIcon />
                         </Box>
                         Cart
                     </Box>

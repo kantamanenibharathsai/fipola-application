@@ -1,15 +1,19 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { Component } from "react";
+import { connect } from "react-redux";
 import calendarImg from "../../assets/single_history/calendarImg.png";
 import watchLaterImg from "../../assets/single_history/watchLater.png";
 import TopNavbarArrow from "../../components/top_navbar_arrow_icon/TopNavbarArrow";
-import singleHistoryStyles from "./SingleHistory.Styles";
 import withRouter from "../../hoc/withRouter";
+import { AppDispatch, RootState } from "../../redux/Store";
+import { CartProductInterface } from "../../typescript/data";
+import singleHistoryStyles from "./SingleHistory.Styles";
 
 interface SingleHistoryCardProps {
-    navigate: (path: string) => void;
+    navigate?: (path: string) => void;
+    eachProduct: CartProductInterface;
 }
-class SingleHistoryOrderedProduct extends Component {
+class SingleHistoryOrderedProduct extends Component<SingleHistoryCardProps, {}> {
     render() {
         return (
             <Box sx={singleHistoryStyles.cardCont}>
@@ -33,6 +37,7 @@ class SingleHistoryOrderedProduct extends Component {
 
 interface MyProps {
     navigate: (path: string) => void;
+    cartProducts?: CartProductInterface[];
 }
 
 class SingleHistory extends Component<MyProps, {}> {
@@ -45,7 +50,7 @@ class SingleHistory extends Component<MyProps, {}> {
 
         return (
             <Box sx={singleHistoryStyles.mainCont}>
-                <TopNavbarArrow childrenContent={"Order"} pathName={"/orderHistory"} navigateHandler={this.singleHistoryCardHandler}/>
+                <TopNavbarArrow childrenContent={"Order"} pathName={"/orderHistory"} navigateHandler={this.singleHistoryCardHandler} />
                 <Box sx={singleHistoryStyles.emptyBox}></Box>
                 <Box sx={singleHistoryStyles.bodyCont}>
                     <Box sx={singleHistoryStyles.bodyTopCont}>
@@ -79,27 +84,27 @@ class SingleHistory extends Component<MyProps, {}> {
                         <Box sx={singleHistoryStyles.centerChildCont}>
                             <Typography component={"h2"}>Ordered Product</Typography>
                             <Box sx={singleHistoryStyles.orderedProductsCont}>
-                                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(each => <SingleHistoryOrderedProduct key={each}/>)}
+                                {this.props.cartProducts?.map(eachProduct => <SingleHistoryOrderedProduct key={eachProduct.productId} eachProduct={eachProduct}/>)}
                             </Box>
                         </Box>
                     </Box>
 
                     <Box sx={singleHistoryStyles.bodyBottomCont}>
                         <Box sx={singleHistoryStyles.centerChildCont}>
-                        <Box sx={singleHistoryStyles.bottomTotalPriceCont}>
-                        <Box>
-                            <Typography>Subtotal</Typography>
-                            <Typography>₹389.00</Typography>
-                        </Box>
-                        <Box>
-                            <Typography>Delivery Charge</Typography>
-                            <Typography>₹0</Typography>
-                        </Box>
-                        <Box>
-                            <Typography>Subtotal</Typography>
-                            <Typography>₹389.00</Typography>
-                        </Box>
-                    </Box>
+                            <Box sx={singleHistoryStyles.bottomTotalPriceCont}>
+                                <Box>
+                                    <Typography>Subtotal</Typography>
+                                    <Typography>₹389.00</Typography>
+                                </Box>
+                                <Box>
+                                    <Typography>Delivery Charge</Typography>
+                                    <Typography>₹0</Typography>
+                                </Box>
+                                <Box>
+                                    <Typography>Subtotal</Typography>
+                                    <Typography>₹389.00</Typography>
+                                </Box>
+                            </Box>
                         </Box>
                     </Box>
                 </Box>
@@ -108,4 +113,17 @@ class SingleHistory extends Component<MyProps, {}> {
     }
 }
 
-export default withRouter(SingleHistory)
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
+    // handleSendOtp: () => dispatch({ type: 'SEND_OTP' }),
+});
+
+
+const mapStateToProps = (state: RootState
+) => ({
+    cartProducts: state.cart.cartProducts
+});
+
+
+export default withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(SingleHistory)
+);
